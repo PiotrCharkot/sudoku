@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { Dimensions } from "react-native";
-//changeeeeeee
+
 const styles = StyleSheet.create({
   container: {
     position: "absolute",

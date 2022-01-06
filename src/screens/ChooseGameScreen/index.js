@@ -77,7 +77,7 @@ const ChooseGameScreen = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.replace("Game")}>
+          <TouchableOpacity onPress={() => navigation.replace("Game3")}>
             <View style={styles.playButton}>
               <ImageBackground
                 source={require("../../../assets/buttonBackground.png")}

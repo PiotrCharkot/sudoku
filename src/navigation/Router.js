@@ -9,6 +9,7 @@ import ForgotScreen from "../screens/ForgotScreen";
 import ChooseGameScreen from "../screens/ChooseGameScreen";
 import GameScreen from "../screens/GameScreen";
 import GameScreen2 from "../screens/GameScreen2";
+import GameScreen3 from "../screens/GameScreen3";
 import { View, Text } from "react-native";
 
 const Stack = createStackNavigator();
@@ -55,6 +56,11 @@ const Router = () => {
         <Stack.Screen
           name="Game2"
           component={GameScreen2}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Game3"
+          component={GameScreen3}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
