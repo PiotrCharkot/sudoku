@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   containerPressed: {
     height: "100%",
     width: "100%",
-    backgroundColor: "yellow",
+    backgroundColor: "pink",
     borderColor: "black",
     borderRightWidth: 1,
     borderBottomWidth: 1,

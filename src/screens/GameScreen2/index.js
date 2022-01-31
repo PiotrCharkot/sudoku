@@ -238,15 +238,11 @@ const GameScreen2 = () => {
               </View>
             </View>
             <View style={styles.row}>
-              <NumField
-                darkMode={darkMode}
-                pressed={pressed4}
-                fixed={fixed4}
-                value={value4}
-                position={4}
-                notes={notes}
-                //pressedSquare={pressedSquare(4)}
-              />
+              <View
+                style={
+                  darkMode ? styles.SmallSquareDarkMode : styles.SmallSquare
+                }
+              ></View>
               <View
                 style={
                   darkMode ? styles.SmallSquareDarkMode : styles.SmallSquare
