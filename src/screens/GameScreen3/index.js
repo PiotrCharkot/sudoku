@@ -250,7 +250,7 @@ const GameScreen3 = ({ route }) => {
   const [fixed43, setFixed43] = useState(true);
   const [fixed44, setFixed44] = useState(true);
   const [fixed45, setFixed45] = useState(true);
-  const [fixed46, setFixed46] = useState(true);
+  const [fixed46, setFixed46] = useState(false);
   const [fixed47, setFixed47] = useState(true);
   const [fixed48, setFixed48] = useState(true);
   const [fixed49, setFixed49] = useState(true);
@@ -2118,57 +2118,58 @@ const GameScreen3 = ({ route }) => {
     setShowContent(true);
   };
 
-  const runEndAnimation = (p1, p2, p3, p4, p5, p6, p7, p8, p9) => {
+  const runEndAnimation = ([p1, p2, p3, p4, p5, p6, p7, p8, p9], type) => {
+    let lastSort = sortAnimation([p1, p2, p3, p4, p5, p6, p7, p8, p9], type);
     Animated.stagger(800, [
       Animated.parallel([
-        Animated.timing(p1, {
+        Animated.timing(lastSort[0], {
           toValue: 0.3,
           useNativeDriver: true,
           duration: 250,
         }),
-        Animated.timing(p2, {
+        Animated.timing(lastSort[1], {
           toValue: 0.3,
           useNativeDriver: true,
           duration: 250,
           delay: 60,
         }),
-        Animated.timing(p3, {
+        Animated.timing(lastSort[2], {
           toValue: 0.3,
           useNativeDriver: true,
           duration: 250,
           delay: 120,
         }),
-        Animated.timing(p4, {
+        Animated.timing(lastSort[3], {
           toValue: 0.3,
           useNativeDriver: true,
           duration: 250,
           delay: 180,
         }),
-        Animated.timing(p5, {
+        Animated.timing(lastSort[4], {
           toValue: 0.3,
           useNativeDriver: true,
           duration: 250,
           delay: 240,
         }),
-        Animated.timing(p6, {
+        Animated.timing(lastSort[5], {
           toValue: 0.3,
           useNativeDriver: true,
           duration: 250,
           delay: 300,
         }),
-        Animated.timing(p7, {
+        Animated.timing(lastSort[6], {
           toValue: 0.3,
           useNativeDriver: true,
           duration: 250,
           delay: 360,
         }),
-        Animated.timing(p8, {
+        Animated.timing(lastSort[7], {
           toValue: 0.3,
           useNativeDriver: true,
           duration: 250,
           delay: 420,
         }),
-        Animated.timing(p9, {
+        Animated.timing(lastSort[8], {
           toValue: 0.3,
           useNativeDriver: true,
           duration: 250,
@@ -2176,54 +2177,54 @@ const GameScreen3 = ({ route }) => {
         }),
       ]),
       Animated.parallel([
-        Animated.timing(p1, {
+        Animated.timing(lastSort[0], {
           toValue: 1,
           useNativeDriver: true,
           duration: 250,
         }),
-        Animated.timing(p2, {
+        Animated.timing(lastSort[1], {
           toValue: 1,
           useNativeDriver: true,
           duration: 250,
           delay: 60,
         }),
-        Animated.timing(p3, {
+        Animated.timing(lastSort[2], {
           toValue: 1,
           useNativeDriver: true,
           duration: 250,
           delay: 120,
         }),
-        Animated.timing(p4, {
+        Animated.timing(lastSort[3], {
           toValue: 1,
           useNativeDriver: true,
           duration: 250,
           delay: 180,
         }),
-        Animated.timing(p5, {
+        Animated.timing(lastSort[4], {
           toValue: 1,
           useNativeDriver: true,
           duration: 250,
           delay: 240,
         }),
-        Animated.timing(p6, {
+        Animated.timing(lastSort[5], {
           toValue: 1,
           useNativeDriver: true,
           duration: 250,
           delay: 300,
         }),
-        Animated.timing(p7, {
+        Animated.timing(lastSort[6], {
           toValue: 1,
           useNativeDriver: true,
           duration: 250,
           delay: 360,
         }),
-        Animated.timing(p8, {
+        Animated.timing(lastSort[7], {
           toValue: 1,
           useNativeDriver: true,
           duration: 250,
           delay: 420,
         }),
-        Animated.timing(p9, {
+        Animated.timing(lastSort[8], {
           toValue: 1,
           useNativeDriver: true,
           duration: 250,
@@ -2231,6 +2232,150 @@ const GameScreen3 = ({ route }) => {
         }),
       ]),
     ]).start();
+  };
+
+  const sortAnimation = (arr, type) => {
+    let finalArr = [];
+    let startIndex = 0;
+    if (type === "row") {
+      startIndex = choosenNum % 9;
+      if (startIndex > 0) {
+        startIndex--;
+      } else {
+        startIndex = 8;
+      }
+    } else if (type === "col") {
+      startIndex = Math.floor(choosenNum / 9);
+      console.log("start index in row", startIndex);
+    } else if (type === "squ") {
+      if (
+        choosenNum === 1 ||
+        choosenNum === 4 ||
+        choosenNum === 7 ||
+        choosenNum === 28 ||
+        choosenNum === 31 ||
+        choosenNum === 34 ||
+        choosenNum === 55 ||
+        choosenNum === 58 ||
+        choosenNum === 61
+      ) {
+        startIndex = 0;
+      } else if (
+        choosenNum === 2 ||
+        choosenNum === 5 ||
+        choosenNum === 8 ||
+        choosenNum === 29 ||
+        choosenNum === 32 ||
+        choosenNum === 35 ||
+        choosenNum === 56 ||
+        choosenNum === 59 ||
+        choosenNum === 62
+      ) {
+        startIndex = 1;
+      } else if (
+        choosenNum === 3 ||
+        choosenNum === 6 ||
+        choosenNum === 9 ||
+        choosenNum === 30 ||
+        choosenNum === 33 ||
+        choosenNum === 36 ||
+        choosenNum === 57 ||
+        choosenNum === 60 ||
+        choosenNum === 63
+      ) {
+        startIndex = 2;
+      } else if (
+        choosenNum === 10 ||
+        choosenNum === 13 ||
+        choosenNum === 16 ||
+        choosenNum === 37 ||
+        choosenNum === 40 ||
+        choosenNum === 43 ||
+        choosenNum === 64 ||
+        choosenNum === 67 ||
+        choosenNum === 70
+      ) {
+        startIndex = 3;
+      } else if (
+        choosenNum === 11 ||
+        choosenNum === 14 ||
+        choosenNum === 17 ||
+        choosenNum === 38 ||
+        choosenNum === 41 ||
+        choosenNum === 44 ||
+        choosenNum === 65 ||
+        choosenNum === 68 ||
+        choosenNum === 71
+      ) {
+        startIndex = 4;
+      } else if (
+        choosenNum === 12 ||
+        choosenNum === 15 ||
+        choosenNum === 18 ||
+        choosenNum === 39 ||
+        choosenNum === 42 ||
+        choosenNum === 45 ||
+        choosenNum === 66 ||
+        choosenNum === 69 ||
+        choosenNum === 72
+      ) {
+        startIndex = 5;
+      } else if (
+        choosenNum === 19 ||
+        choosenNum === 22 ||
+        choosenNum === 25 ||
+        choosenNum === 46 ||
+        choosenNum === 49 ||
+        choosenNum === 52 ||
+        choosenNum === 73 ||
+        choosenNum === 76 ||
+        choosenNum === 79
+      ) {
+        startIndex = 6;
+      } else if (
+        choosenNum === 20 ||
+        choosenNum === 23 ||
+        choosenNum === 26 ||
+        choosenNum === 47 ||
+        choosenNum === 50 ||
+        choosenNum === 53 ||
+        choosenNum === 74 ||
+        choosenNum === 77 ||
+        choosenNum === 80
+      ) {
+        startIndex = 7;
+      } else if (
+        choosenNum === 21 ||
+        choosenNum === 24 ||
+        choosenNum === 27 ||
+        choosenNum === 48 ||
+        choosenNum === 51 ||
+        choosenNum === 54 ||
+        choosenNum === 75 ||
+        choosenNum === 78 ||
+        choosenNum === 81
+      ) {
+        startIndex = 8;
+      }
+    }
+
+    console.log(arr);
+
+    let frontPart = arr.slice(0, startIndex);
+    let backPart = arr.slice(startIndex);
+    frontPart.reverse();
+
+    for (let i = 0; i < 10; i++) {
+      if (backPart[i]) {
+        finalArr.push(backPart[i]);
+      }
+      if (frontPart[i]) {
+        finalArr.push(frontPart[i]);
+      }
+    }
+
+    console.log(finalArr);
+    return finalArr;
   };
 
   const runAnimation = () => {
@@ -2588,33 +2733,42 @@ const GameScreen3 = ({ route }) => {
       animationDelayCol = 1600;
       animationDelaySqu = 1600;
     }
+    if (counterCol === 8) {
+      animationDelaySqu = 1600;
+    }
     if (counterRow === 8 && counterCol === 8) {
       animationDelaySqu = 3200;
     }
     if (counterRow === 8 && choosenNum < 10) {
       runEndAnimation(
-        endOpacity1,
-        endOpacity2,
-        endOpacity3,
-        endOpacity4,
-        endOpacity5,
-        endOpacity6,
-        endOpacity7,
-        endOpacity8,
-        endOpacity9
+        [
+          endOpacity1,
+          endOpacity2,
+          endOpacity3,
+          endOpacity4,
+          endOpacity5,
+          endOpacity6,
+          endOpacity7,
+          endOpacity8,
+          endOpacity9,
+        ],
+        "row"
       );
     }
     if (counterRow === 8 && choosenNum > 9 && choosenNum < 19) {
       runEndAnimation(
-        endOpacity18,
-        endOpacity17,
-        endOpacity16,
-        endOpacity15,
-        endOpacity14,
-        endOpacity13,
-        endOpacity12,
-        endOpacity11,
-        endOpacity10
+        [
+          endOpacity10,
+          endOpacity11,
+          endOpacity12,
+          endOpacity13,
+          endOpacity14,
+          endOpacity15,
+          endOpacity16,
+          endOpacity17,
+          endOpacity18,
+        ],
+        "row"
       );
     }
     if (
@@ -2631,15 +2785,18 @@ const GameScreen3 = ({ route }) => {
     ) {
       setTimeout(() => {
         runEndAnimation(
-          endOpacity1,
-          endOpacity10,
-          endOpacity19,
-          endOpacity28,
-          endOpacity37,
-          endOpacity46,
-          endOpacity55,
-          endOpacity64,
-          endOpacity73
+          [
+            endOpacity1,
+            endOpacity10,
+            endOpacity19,
+            endOpacity28,
+            endOpacity37,
+            endOpacity46,
+            endOpacity55,
+            endOpacity64,
+            endOpacity73,
+          ],
+          "col"
         );
       }, animationDelayCol);
     }
@@ -2651,15 +2808,18 @@ const GameScreen3 = ({ route }) => {
     ) {
       setTimeout(() => {
         runEndAnimation(
-          endOpacity1,
-          endOpacity2,
-          endOpacity3,
-          endOpacity10,
-          endOpacity11,
-          endOpacity12,
-          endOpacity19,
-          endOpacity20,
-          endOpacity21
+          [
+            endOpacity1,
+            endOpacity2,
+            endOpacity3,
+            endOpacity10,
+            endOpacity11,
+            endOpacity12,
+            endOpacity19,
+            endOpacity20,
+            endOpacity21,
+          ],
+          "squ"
         );
       }, animationDelaySqu);
     }
@@ -4335,53 +4495,701 @@ const GameScreen3 = ({ route }) => {
           <View style={styles.bigRow}>
             <View style={styles.MediumSquare}>
               <View style={styles.SmallRow}>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(55)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity55 }]}
+                  >
+                    {fixed55 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed55}
+                        fixed={fixed55}
+                        value={value55}
+                        position={55}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={55}
+                        notes={notes}
+                        pressed={pressed55}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(56)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity56 }]}
+                  >
+                    {fixed56 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed56}
+                        fixed={fixed56}
+                        value={value56}
+                        position={56}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={56}
+                        notes={notes}
+                        pressed={pressed56}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(57)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity57 }]}
+                  >
+                    {fixed57 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed57}
+                        fixed={fixed57}
+                        value={value57}
+                        position={57}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={57}
+                        notes={notes}
+                        pressed={pressed57}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
               </View>
               <View style={styles.SmallRow}>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(64)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity64 }]}
+                  >
+                    {fixed64 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed64}
+                        fixed={fixed64}
+                        value={value64}
+                        position={64}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={64}
+                        notes={notes}
+                        pressed={pressed64}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(65)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity65 }]}
+                  >
+                    {fixed65 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed65}
+                        fixed={fixed65}
+                        value={value65}
+                        position={65}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={65}
+                        notes={notes}
+                        pressed={pressed65}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(66)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity66 }]}
+                  >
+                    {fixed66 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed66}
+                        fixed={fixed66}
+                        value={value66}
+                        position={66}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={66}
+                        notes={notes}
+                        pressed={pressed66}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
               </View>
               <View style={styles.SmallRow}>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(73)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity73 }]}
+                  >
+                    {fixed73 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed73}
+                        fixed={fixed73}
+                        value={value73}
+                        position={73}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={73}
+                        notes={notes}
+                        pressed={pressed73}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(74)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity74 }]}
+                  >
+                    {fixed74 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed74}
+                        fixed={fixed74}
+                        value={value74}
+                        position={74}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={74}
+                        notes={notes}
+                        pressed={pressed74}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(75)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity75 }]}
+                  >
+                    {fixed75 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed75}
+                        fixed={fixed75}
+                        value={value75}
+                        position={75}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={75}
+                        notes={notes}
+                        pressed={pressed75}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
               </View>
             </View>
             <View style={styles.MediumSquare}>
               <View style={styles.SmallRow}>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(58)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity58 }]}
+                  >
+                    {fixed58 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed58}
+                        fixed={fixed58}
+                        value={value58}
+                        position={58}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={58}
+                        notes={notes}
+                        pressed={pressed58}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(59)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity59 }]}
+                  >
+                    {fixed59 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed59}
+                        fixed={fixed59}
+                        value={value59}
+                        position={59}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={59}
+                        notes={notes}
+                        pressed={pressed59}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(60)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity60 }]}
+                  >
+                    {fixed60 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed60}
+                        fixed={fixed60}
+                        value={value60}
+                        position={60}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={60}
+                        notes={notes}
+                        pressed={pressed60}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
               </View>
               <View style={styles.SmallRow}>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(67)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity67 }]}
+                  >
+                    {fixed67 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed67}
+                        fixed={fixed67}
+                        value={value67}
+                        position={67}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={67}
+                        notes={notes}
+                        pressed={pressed67}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(68)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity68 }]}
+                  >
+                    {fixed68 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed68}
+                        fixed={fixed68}
+                        value={value68}
+                        position={68}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={68}
+                        notes={notes}
+                        pressed={pressed68}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(69)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity69 }]}
+                  >
+                    {fixed69 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed69}
+                        fixed={fixed69}
+                        value={value69}
+                        position={69}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={69}
+                        notes={notes}
+                        pressed={pressed69}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
               </View>
               <View style={styles.SmallRow}>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(76)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity76 }]}
+                  >
+                    {fixed76 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed76}
+                        fixed={fixed76}
+                        value={value76}
+                        position={76}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={76}
+                        notes={notes}
+                        pressed={pressed76}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(77)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity77 }]}
+                  >
+                    {fixed77 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed77}
+                        fixed={fixed77}
+                        value={value77}
+                        position={77}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={77}
+                        notes={notes}
+                        pressed={pressed77}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(78)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity78 }]}
+                  >
+                    {fixed78 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed78}
+                        fixed={fixed78}
+                        value={value78}
+                        position={78}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={78}
+                        notes={notes}
+                        pressed={pressed78}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
               </View>
             </View>
             <View style={styles.MediumSquare}>
               <View style={styles.SmallRow}>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(61)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity61 }]}
+                  >
+                    {fixed61 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed61}
+                        fixed={fixed61}
+                        value={value61}
+                        position={61}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={61}
+                        notes={notes}
+                        pressed={pressed61}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(62)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity62 }]}
+                  >
+                    {fixed62 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed62}
+                        fixed={fixed62}
+                        value={value62}
+                        position={62}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={62}
+                        notes={notes}
+                        pressed={pressed62}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(63)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity63 }]}
+                  >
+                    {fixed63 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed63}
+                        fixed={fixed63}
+                        value={value63}
+                        position={63}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={63}
+                        notes={notes}
+                        pressed={pressed63}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
               </View>
               <View style={styles.SmallRow}>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(70)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity70 }]}
+                  >
+                    {fixed70 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed70}
+                        fixed={fixed70}
+                        value={value70}
+                        position={70}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={70}
+                        notes={notes}
+                        pressed={pressed70}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(71)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity71 }]}
+                  >
+                    {fixed71 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed71}
+                        fixed={fixed71}
+                        value={value71}
+                        position={71}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={71}
+                        notes={notes}
+                        pressed={pressed71}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(72)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity72 }]}
+                  >
+                    {fixed72 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed72}
+                        fixed={fixed72}
+                        value={value72}
+                        position={72}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={72}
+                        notes={notes}
+                        pressed={pressed72}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
               </View>
               <View style={styles.SmallRow}>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
-                <View style={styles.SmallSquare}></View>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(79)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity79 }]}
+                  >
+                    {fixed79 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed79}
+                        fixed={fixed79}
+                        value={value79}
+                        position={79}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={79}
+                        notes={notes}
+                        pressed={pressed79}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(80)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity80 }]}
+                  >
+                    {fixed80 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed80}
+                        fixed={fixed80}
+                        value={value80}
+                        position={80}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={80}
+                        notes={notes}
+                        pressed={pressed80}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.opacityStyle}
+                  onPress={() => pressedSquare(81)}
+                >
+                  <Animated.View
+                    style={[styles.animatedWrapper, { opacity: endOpacity81 }]}
+                  >
+                    {fixed81 ? (
+                      <NumField
+                        darkMode={darkMode}
+                        pressed={pressed81}
+                        fixed={fixed81}
+                        value={value81}
+                        position={81}
+                        notes={notes}
+                      />
+                    ) : (
+                      <NoteFiled
+                        position={81}
+                        notes={notes}
+                        pressed={pressed81}
+                      />
+                    )}
+                  </Animated.View>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
