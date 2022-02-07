@@ -8,9 +8,11 @@ import {
   ImageBackground,
 } from "react-native";
 import styles from "./styles";
+import { Audio } from "expo-av";
 import { db, auth } from "../firebase";
 import NoteFiled from "../../components/NoteField";
 import NumField from "../../components/NumField";
+import AnimatedTest from "../AnimatedTest";
 import Timer from "../../components/Timer";
 import { BlurView } from "expo-blur";
 import { useNavigation } from "@react-navigation/native";
@@ -21,19 +23,32 @@ import {
   faStickyNote,
 } from "@fortawesome/free-solid-svg-icons";
 
-//animation when part is finished
-//add icons
-//add mulitple messages
-//adjust colors in reg and dark modes
-//scale up
+//send data fo firebase
+//game lost func
+//fix color in dark mode
 //personal statistisk and overall ranking for diff levels
 
 const GameScreen3 = ({ route }) => {
   const screenWidth = Dimensions.get("window").width;
   const urlLink = "https://knotty-alpine-puppy.glitch.me/gridData";
+  const messagesSecond = [
+    "Oh well... That is not correct...",
+    "I'm sure you can do better",
+    "Come on... really...",
+    "Are you sure???",
+    "Nope, nope, nope",
+    "That's not correct",
+  ];
+  const messagesThird = [
+    "That was your last chance...",
+    "You'll do better next time",
+    "You can't win every time...",
+  ];
   const [darkMode, setDarkMode] = useState(false);
   const [showTime, setShowTime] = useState(true);
   const [soundOn, setSoundOn] = useState(true);
+  const [sound, setSound] = useState();
+  const [gameWon, setGameWon] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [notesOn, setNotesOn] = useState(false);
   const [pauseOn, setPauseOn] = useState(false);
@@ -42,7 +57,9 @@ const GameScreen3 = ({ route }) => {
   const [interv, setInterv] = useState();
   const [dummy, setDummy] = useState(false);
   const [mistakes, setMistakes] = useState(0);
-  const [message, setMessage] = useState("Oh well... That is not correct...");
+  const [message, setMessage] = useState(
+    messagesSecond[Math.floor(Math.random() * messagesSecond.length)]
+  );
   const [pressed1, setPressed1] = useState(false);
   const [pressed2, setPressed2] = useState(false);
   const [pressed3, setPressed3] = useState(false);
@@ -205,27 +222,27 @@ const GameScreen3 = ({ route }) => {
   const [value79, setValue79] = useState("");
   const [value80, setValue80] = useState("");
   const [value81, setValue81] = useState("");
-  const [fixed1, setFixed1] = useState(false);
+  const [fixed1, setFixed1] = useState(true);
   const [fixed2, setFixed2] = useState(true);
-  const [fixed3, setFixed3] = useState(false);
+  const [fixed3, setFixed3] = useState(true);
   const [fixed4, setFixed4] = useState(true);
-  const [fixed5, setFixed5] = useState(false);
+  const [fixed5, setFixed5] = useState(true);
   const [fixed6, setFixed6] = useState(true);
-  const [fixed7, setFixed7] = useState(false);
+  const [fixed7, setFixed7] = useState(true);
   const [fixed8, setFixed8] = useState(true);
-  const [fixed9, setFixed9] = useState(false);
+  const [fixed9, setFixed9] = useState(true);
   const [fixed10, setFixed10] = useState(true);
   const [fixed11, setFixed11] = useState(true);
   const [fixed12, setFixed12] = useState(true);
-  const [fixed13, setFixed13] = useState(false);
-  const [fixed14, setFixed14] = useState(false);
-  const [fixed15, setFixed15] = useState(false);
-  const [fixed16, setFixed16] = useState(false);
-  const [fixed17, setFixed17] = useState(false);
-  const [fixed18, setFixed18] = useState(false);
+  const [fixed13, setFixed13] = useState(true);
+  const [fixed14, setFixed14] = useState(true);
+  const [fixed15, setFixed15] = useState(true);
+  const [fixed16, setFixed16] = useState(true);
+  const [fixed17, setFixed17] = useState(true);
+  const [fixed18, setFixed18] = useState(true);
   const [fixed19, setFixed19] = useState(false);
   const [fixed20, setFixed20] = useState(true);
-  const [fixed21, setFixed21] = useState(false);
+  const [fixed21, setFixed21] = useState(true);
   const [fixed22, setFixed22] = useState(true);
   const [fixed23, setFixed23] = useState(true);
   const [fixed24, setFixed24] = useState(true);
@@ -2008,6 +2025,9 @@ const GameScreen3 = ({ route }) => {
     } else {
       setChoosenNum("A");
     }
+    if (soundOn) {
+      playSound();
+    }
   };
 
   const switchNotes = () => {
@@ -2027,8 +2047,10 @@ const GameScreen3 = ({ route }) => {
       }).start();
     } else if (pauseOn) {
       setTimeout(() => {
-        updateClock();
-        setInterv(setInterval(updateClock, 1000));
+        if (!gameWon) {
+          updateClock();
+          setInterv(setInterval(updateClock, 1000));
+        }
         setBlurLayer(0);
       }, 1000);
       Animated.timing(blurIntensity, {
@@ -2079,24 +2101,31 @@ const GameScreen3 = ({ route }) => {
       arrOfFixed[choosenNum - 1](true);
       arrOfChoice1[choosenNum - 1](false);
       setChoosenNum("A");
+      if (soundOn) {
+        playSoundPebbel();
+      }
       runAnimation();
     } else if (
       arrOFValues[choosenNum - 1] !== num.toString() &&
       choosenNum !== "A"
     ) {
-      console.log("thats mistake");
       if (mistakes < 3) {
         setMistakes(() => {
           return mistakes + 1;
         });
       }
       if (mistakes === 1) {
+        let tempMessage =
+          messagesSecond[Math.floor(Math.random() * messagesSecond.length)];
+        console.log(tempMessage);
         setMessage(() => {
-          return "Look alive!!! That's another mistake!!!";
+          return tempMessage;
         });
       } else if (mistakes === 2) {
+        let tempMessage2 =
+          messagesThird[Math.floor(Math.random() * messagesThird.length)];
         setMessage(() => {
-          return "Ok let's try it again :)";
+          return tempMessage2;
         });
         //add view with choice of another game
       }
@@ -2115,120 +2144,168 @@ const GameScreen3 = ({ route }) => {
     setDarkMode(doc.data().darkMode);
     setShowTime(doc.data().showTimer);
     setSoundOn(doc.data().soundOn);
-    setShowContent(true);
   };
 
   const runEndAnimation = ([p1, p2, p3, p4, p5, p6, p7, p8, p9], type) => {
     let lastSort = sortAnimation([p1, p2, p3, p4, p5, p6, p7, p8, p9], type);
-    Animated.stagger(800, [
-      Animated.parallel([
-        Animated.timing(lastSort[0], {
-          toValue: 0.3,
-          useNativeDriver: true,
-          duration: 250,
-        }),
-        Animated.timing(lastSort[1], {
-          toValue: 0.3,
-          useNativeDriver: true,
-          duration: 250,
-          delay: 60,
-        }),
-        Animated.timing(lastSort[2], {
-          toValue: 0.3,
-          useNativeDriver: true,
-          duration: 250,
-          delay: 120,
-        }),
-        Animated.timing(lastSort[3], {
-          toValue: 0.3,
-          useNativeDriver: true,
-          duration: 250,
-          delay: 180,
-        }),
-        Animated.timing(lastSort[4], {
-          toValue: 0.3,
-          useNativeDriver: true,
-          duration: 250,
-          delay: 240,
-        }),
-        Animated.timing(lastSort[5], {
-          toValue: 0.3,
-          useNativeDriver: true,
-          duration: 250,
-          delay: 300,
-        }),
-        Animated.timing(lastSort[6], {
-          toValue: 0.3,
-          useNativeDriver: true,
-          duration: 250,
-          delay: 360,
-        }),
-        Animated.timing(lastSort[7], {
-          toValue: 0.3,
-          useNativeDriver: true,
-          duration: 250,
-          delay: 420,
-        }),
-        Animated.timing(lastSort[8], {
-          toValue: 0.3,
-          useNativeDriver: true,
-          duration: 250,
-          delay: 480,
-        }),
+    Animated.sequence([
+      Animated.stagger(850, [
+        Animated.parallel([
+          Animated.timing(lastSort[0], {
+            toValue: 0.3,
+            useNativeDriver: true,
+            duration: 250,
+          }),
+          Animated.timing(lastSort[1], {
+            toValue: 0.3,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 60,
+          }),
+          Animated.timing(lastSort[2], {
+            toValue: 0.3,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 120,
+          }),
+          Animated.timing(lastSort[3], {
+            toValue: 0.3,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 180,
+          }),
+          Animated.timing(lastSort[4], {
+            toValue: 0.3,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 240,
+          }),
+          Animated.timing(lastSort[5], {
+            toValue: 0.3,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 300,
+          }),
+          Animated.timing(lastSort[6], {
+            toValue: 0.3,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 360,
+          }),
+          Animated.timing(lastSort[7], {
+            toValue: 0.3,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 420,
+          }),
+          Animated.timing(lastSort[8], {
+            toValue: 0.3,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 480,
+          }),
+        ]),
+        Animated.parallel([
+          Animated.timing(lastSort[0], {
+            toValue: 1,
+            useNativeDriver: true,
+            duration: 250,
+          }),
+          Animated.timing(lastSort[1], {
+            toValue: 1,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 60,
+          }),
+          Animated.timing(lastSort[2], {
+            toValue: 1,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 120,
+          }),
+          Animated.timing(lastSort[3], {
+            toValue: 1,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 180,
+          }),
+          Animated.timing(lastSort[4], {
+            toValue: 1,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 240,
+          }),
+          Animated.timing(lastSort[5], {
+            toValue: 1,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 300,
+          }),
+          Animated.timing(lastSort[6], {
+            toValue: 1,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 360,
+          }),
+          Animated.timing(lastSort[7], {
+            toValue: 1,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 420,
+          }),
+          Animated.timing(lastSort[8], {
+            toValue: 1,
+            useNativeDriver: true,
+            duration: 250,
+            delay: 480,
+          }),
+        ]),
       ]),
       Animated.parallel([
         Animated.timing(lastSort[0], {
           toValue: 1,
           useNativeDriver: true,
-          duration: 250,
+          duration: 1,
         }),
         Animated.timing(lastSort[1], {
           toValue: 1,
           useNativeDriver: true,
-          duration: 250,
-          delay: 60,
+          duration: 1,
         }),
         Animated.timing(lastSort[2], {
           toValue: 1,
           useNativeDriver: true,
-          duration: 250,
-          delay: 120,
+          duration: 1,
         }),
         Animated.timing(lastSort[3], {
           toValue: 1,
           useNativeDriver: true,
-          duration: 250,
-          delay: 180,
+          duration: 1,
         }),
         Animated.timing(lastSort[4], {
           toValue: 1,
           useNativeDriver: true,
-          duration: 250,
-          delay: 240,
+          duration: 1,
         }),
         Animated.timing(lastSort[5], {
           toValue: 1,
           useNativeDriver: true,
-          duration: 250,
-          delay: 300,
+          duration: 1,
         }),
         Animated.timing(lastSort[6], {
           toValue: 1,
           useNativeDriver: true,
-          duration: 250,
-          delay: 360,
+          duration: 1,
         }),
         Animated.timing(lastSort[7], {
           toValue: 1,
           useNativeDriver: true,
-          duration: 250,
-          delay: 420,
+          duration: 1,
         }),
         Animated.timing(lastSort[8], {
           toValue: 1,
           useNativeDriver: true,
-          duration: 250,
-          delay: 480,
+          duration: 1,
         }),
       ]),
     ]).start();
@@ -2357,9 +2434,8 @@ const GameScreen3 = ({ route }) => {
       ) {
         startIndex = 8;
       }
+      gameEnd();
     }
-
-    console.log(arr);
 
     let frontPart = arr.slice(0, startIndex);
     let backPart = arr.slice(startIndex);
@@ -2374,7 +2450,6 @@ const GameScreen3 = ({ route }) => {
       }
     }
 
-    console.log(finalArr);
     return finalArr;
   };
 
@@ -2730,14 +2805,15 @@ const GameScreen3 = ({ route }) => {
       }
     }
     if (counterRow === 8) {
-      animationDelayCol = 1600;
-      animationDelaySqu = 1600;
+      animationDelayCol = 1750;
+      animationDelaySqu = 1850;
     }
     if (counterCol === 8) {
-      animationDelaySqu = 1600;
+      animationDelaySqu = 1850;
     }
     if (counterRow === 8 && counterCol === 8) {
-      animationDelaySqu = 3200;
+      animationDelayCol = 1750;
+      animationDelaySqu = 3800;
     }
     if (counterRow === 8 && choosenNum < 10) {
       runEndAnimation(
@@ -2767,6 +2843,118 @@ const GameScreen3 = ({ route }) => {
           endOpacity16,
           endOpacity17,
           endOpacity18,
+        ],
+        "row"
+      );
+    }
+    if (counterRow === 8 && choosenNum > 18 && choosenNum < 28) {
+      runEndAnimation(
+        [
+          endOpacity19,
+          endOpacity20,
+          endOpacity21,
+          endOpacity22,
+          endOpacity23,
+          endOpacity24,
+          endOpacity25,
+          endOpacity26,
+          endOpacity27,
+        ],
+        "row"
+      );
+    }
+    if (counterRow === 8 && choosenNum > 27 && choosenNum < 37) {
+      runEndAnimation(
+        [
+          endOpacity28,
+          endOpacity29,
+          endOpacity30,
+          endOpacity31,
+          endOpacity32,
+          endOpacity33,
+          endOpacity34,
+          endOpacity35,
+          endOpacity36,
+        ],
+        "row"
+      );
+    }
+    if (counterRow === 8 && choosenNum > 36 && choosenNum < 46) {
+      runEndAnimation(
+        [
+          endOpacity37,
+          endOpacity38,
+          endOpacity39,
+          endOpacity40,
+          endOpacity41,
+          endOpacity42,
+          endOpacity43,
+          endOpacity44,
+          endOpacity45,
+        ],
+        "row"
+      );
+    }
+    if (counterRow === 8 && choosenNum > 45 && choosenNum < 55) {
+      runEndAnimation(
+        [
+          endOpacity46,
+          endOpacity47,
+          endOpacity48,
+          endOpacity49,
+          endOpacity50,
+          endOpacity51,
+          endOpacity52,
+          endOpacity53,
+          endOpacity54,
+        ],
+        "row"
+      );
+    }
+    if (counterRow === 8 && choosenNum > 54 && choosenNum < 64) {
+      runEndAnimation(
+        [
+          endOpacity55,
+          endOpacity56,
+          endOpacity57,
+          endOpacity58,
+          endOpacity59,
+          endOpacity60,
+          endOpacity61,
+          endOpacity62,
+          endOpacity63,
+        ],
+        "row"
+      );
+    }
+    if (counterRow === 8 && choosenNum > 63 && choosenNum < 73) {
+      runEndAnimation(
+        [
+          endOpacity64,
+          endOpacity65,
+          endOpacity66,
+          endOpacity67,
+          endOpacity68,
+          endOpacity69,
+          endOpacity70,
+          endOpacity71,
+          endOpacity72,
+        ],
+        "row"
+      );
+    }
+    if (counterRow === 8 && choosenNum > 72 && choosenNum < 82) {
+      runEndAnimation(
+        [
+          endOpacity73,
+          endOpacity74,
+          endOpacity75,
+          endOpacity76,
+          endOpacity77,
+          endOpacity78,
+          endOpacity79,
+          endOpacity80,
+          endOpacity81,
         ],
         "row"
       );
@@ -2801,6 +2989,238 @@ const GameScreen3 = ({ route }) => {
       }, animationDelayCol);
     }
     if (
+      counterCol === 8 &&
+      (choosenNum === 2 ||
+        choosenNum === 11 ||
+        choosenNum === 20 ||
+        choosenNum === 29 ||
+        choosenNum === 38 ||
+        choosenNum === 47 ||
+        choosenNum === 56 ||
+        choosenNum === 65 ||
+        choosenNum === 74)
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity2,
+            endOpacity11,
+            endOpacity20,
+            endOpacity29,
+            endOpacity38,
+            endOpacity47,
+            endOpacity56,
+            endOpacity65,
+            endOpacity74,
+          ],
+          "col"
+        );
+      }, animationDelayCol);
+    }
+    if (
+      counterCol === 8 &&
+      (choosenNum === 3 ||
+        choosenNum === 12 ||
+        choosenNum === 21 ||
+        choosenNum === 30 ||
+        choosenNum === 39 ||
+        choosenNum === 48 ||
+        choosenNum === 57 ||
+        choosenNum === 66 ||
+        choosenNum === 75)
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity3,
+            endOpacity12,
+            endOpacity21,
+            endOpacity30,
+            endOpacity39,
+            endOpacity48,
+            endOpacity57,
+            endOpacity66,
+            endOpacity75,
+          ],
+          "col"
+        );
+      }, animationDelayCol);
+    }
+    if (
+      counterCol === 8 &&
+      (choosenNum === 4 ||
+        choosenNum === 13 ||
+        choosenNum === 22 ||
+        choosenNum === 31 ||
+        choosenNum === 40 ||
+        choosenNum === 49 ||
+        choosenNum === 58 ||
+        choosenNum === 67 ||
+        choosenNum === 76)
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity4,
+            endOpacity13,
+            endOpacity22,
+            endOpacity31,
+            endOpacity40,
+            endOpacity49,
+            endOpacity58,
+            endOpacity67,
+            endOpacity76,
+          ],
+          "col"
+        );
+      }, animationDelayCol);
+    }
+    if (
+      counterCol === 8 &&
+      (choosenNum === 5 ||
+        choosenNum === 14 ||
+        choosenNum === 23 ||
+        choosenNum === 32 ||
+        choosenNum === 41 ||
+        choosenNum === 50 ||
+        choosenNum === 59 ||
+        choosenNum === 68 ||
+        choosenNum === 77)
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity5,
+            endOpacity14,
+            endOpacity23,
+            endOpacity32,
+            endOpacity41,
+            endOpacity50,
+            endOpacity59,
+            endOpacity68,
+            endOpacity77,
+          ],
+          "col"
+        );
+      }, animationDelayCol);
+    }
+    if (
+      counterCol === 8 &&
+      (choosenNum === 6 ||
+        choosenNum === 15 ||
+        choosenNum === 24 ||
+        choosenNum === 33 ||
+        choosenNum === 42 ||
+        choosenNum === 51 ||
+        choosenNum === 60 ||
+        choosenNum === 69 ||
+        choosenNum === 78)
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity6,
+            endOpacity15,
+            endOpacity24,
+            endOpacity33,
+            endOpacity42,
+            endOpacity51,
+            endOpacity60,
+            endOpacity69,
+            endOpacity78,
+          ],
+          "col"
+        );
+      }, animationDelayCol);
+    }
+    if (
+      counterCol === 8 &&
+      (choosenNum === 7 ||
+        choosenNum === 16 ||
+        choosenNum === 25 ||
+        choosenNum === 34 ||
+        choosenNum === 43 ||
+        choosenNum === 52 ||
+        choosenNum === 61 ||
+        choosenNum === 70 ||
+        choosenNum === 79)
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity7,
+            endOpacity16,
+            endOpacity25,
+            endOpacity34,
+            endOpacity43,
+            endOpacity52,
+            endOpacity61,
+            endOpacity70,
+            endOpacity79,
+          ],
+          "col"
+        );
+      }, animationDelayCol);
+    }
+    if (
+      counterCol === 8 &&
+      (choosenNum === 8 ||
+        choosenNum === 17 ||
+        choosenNum === 26 ||
+        choosenNum === 35 ||
+        choosenNum === 44 ||
+        choosenNum === 53 ||
+        choosenNum === 62 ||
+        choosenNum === 71 ||
+        choosenNum === 80)
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity8,
+            endOpacity17,
+            endOpacity26,
+            endOpacity35,
+            endOpacity44,
+            endOpacity53,
+            endOpacity62,
+            endOpacity71,
+            endOpacity80,
+          ],
+          "col"
+        );
+      }, animationDelayCol);
+    }
+    if (
+      counterCol === 8 &&
+      (choosenNum === 9 ||
+        choosenNum === 18 ||
+        choosenNum === 27 ||
+        choosenNum === 36 ||
+        choosenNum === 45 ||
+        choosenNum === 54 ||
+        choosenNum === 63 ||
+        choosenNum === 72 ||
+        choosenNum === 81)
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity9,
+            endOpacity18,
+            endOpacity27,
+            endOpacity36,
+            endOpacity45,
+            endOpacity54,
+            endOpacity63,
+            endOpacity72,
+            endOpacity81,
+          ],
+          "col"
+        );
+      }, animationDelayCol);
+    }
+    if (
       counterSqu === 8 &&
       (choosenNum < 4 ||
         (choosenNum > 9 && choosenNum < 13) ||
@@ -2823,6 +3243,1126 @@ const GameScreen3 = ({ route }) => {
         );
       }, animationDelaySqu);
     }
+    if (
+      counterSqu === 8 &&
+      ((choosenNum > 3 && choosenNum < 7) ||
+        (choosenNum > 12 && choosenNum < 16) ||
+        (choosenNum > 21 && choosenNum < 25))
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity4,
+            endOpacity5,
+            endOpacity6,
+            endOpacity13,
+            endOpacity14,
+            endOpacity15,
+            endOpacity22,
+            endOpacity23,
+            endOpacity24,
+          ],
+          "squ"
+        );
+      }, animationDelaySqu);
+    }
+    if (
+      counterSqu === 8 &&
+      ((choosenNum > 6 && choosenNum < 10) ||
+        (choosenNum > 15 && choosenNum < 19) ||
+        (choosenNum > 24 && choosenNum < 28))
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity7,
+            endOpacity8,
+            endOpacity9,
+            endOpacity16,
+            endOpacity17,
+            endOpacity18,
+            endOpacity25,
+            endOpacity26,
+            endOpacity27,
+          ],
+          "squ"
+        );
+      }, animationDelaySqu);
+    }
+    if (
+      counterSqu === 8 &&
+      ((choosenNum > 27 && choosenNum < 31) ||
+        (choosenNum > 36 && choosenNum < 40) ||
+        (choosenNum > 45 && choosenNum < 49))
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity28,
+            endOpacity29,
+            endOpacity30,
+            endOpacity37,
+            endOpacity38,
+            endOpacity39,
+            endOpacity46,
+            endOpacity47,
+            endOpacity48,
+          ],
+          "squ"
+        );
+      }, animationDelaySqu);
+    }
+    if (
+      counterSqu === 8 &&
+      ((choosenNum > 30 && choosenNum < 34) ||
+        (choosenNum > 39 && choosenNum < 43) ||
+        (choosenNum > 48 && choosenNum < 52))
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity31,
+            endOpacity32,
+            endOpacity33,
+            endOpacity40,
+            endOpacity41,
+            endOpacity42,
+            endOpacity49,
+            endOpacity50,
+            endOpacity51,
+          ],
+          "squ"
+        );
+      }, animationDelaySqu);
+    }
+    if (
+      counterSqu === 8 &&
+      ((choosenNum > 33 && choosenNum < 37) ||
+        (choosenNum > 42 && choosenNum < 46) ||
+        (choosenNum > 51 && choosenNum < 55))
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity34,
+            endOpacity35,
+            endOpacity36,
+            endOpacity43,
+            endOpacity44,
+            endOpacity45,
+            endOpacity52,
+            endOpacity53,
+            endOpacity54,
+          ],
+          "squ"
+        );
+      }, animationDelaySqu);
+    }
+    if (
+      counterSqu === 8 &&
+      ((choosenNum > 54 && choosenNum < 58) ||
+        (choosenNum > 63 && choosenNum < 67) ||
+        (choosenNum > 72 && choosenNum < 76))
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity55,
+            endOpacity56,
+            endOpacity57,
+            endOpacity64,
+            endOpacity65,
+            endOpacity66,
+            endOpacity73,
+            endOpacity74,
+            endOpacity75,
+          ],
+          "squ"
+        );
+      }, animationDelaySqu);
+    }
+    if (
+      counterSqu === 8 &&
+      ((choosenNum > 57 && choosenNum < 61) ||
+        (choosenNum > 66 && choosenNum < 70) ||
+        (choosenNum > 75 && choosenNum < 79))
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity58,
+            endOpacity59,
+            endOpacity60,
+            endOpacity67,
+            endOpacity68,
+            endOpacity69,
+            endOpacity76,
+            endOpacity77,
+            endOpacity78,
+          ],
+          "squ"
+        );
+      }, animationDelaySqu);
+    }
+    if (
+      counterSqu === 8 &&
+      ((choosenNum > 60 && choosenNum < 64) ||
+        (choosenNum > 69 && choosenNum < 73) ||
+        choosenNum > 78)
+    ) {
+      setTimeout(() => {
+        runEndAnimation(
+          [
+            endOpacity61,
+            endOpacity62,
+            endOpacity63,
+            endOpacity70,
+            endOpacity71,
+            endOpacity72,
+            endOpacity79,
+            endOpacity80,
+            endOpacity81,
+          ],
+          "squ"
+        );
+      }, animationDelaySqu);
+    }
+  };
+
+  const runFinishAnimation = () => {
+    Animated.stagger(1200, [
+      Animated.parallel([
+        Animated.timing(endOpacity41, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 200,
+        }),
+        Animated.timing(endOpacity31, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 200,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity33, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 200,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity49, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 200,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity51, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 200,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity32, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 300,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity40, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 300,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity42, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 300,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity50, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 300,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity21, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 400,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity23, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 400,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity25, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 400,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity39, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 400,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity43, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 400,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity57, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 400,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity59, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 400,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity61, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 400,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity22, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 500,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity24, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 500,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity30, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 500,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity34, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 500,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity48, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 500,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity52, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 500,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity58, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 500,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity60, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 500,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity11, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 600,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity13, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 600,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity15, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 600,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity17, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 600,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity29, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 600,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity35, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 600,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity47, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 600,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity53, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 600,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity65, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 600,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity67, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 600,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity69, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 600,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity71, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 600,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity12, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 700,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity14, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 700,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity16, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 700,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity20, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 700,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity26, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 700,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity38, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 700,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity44, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 700,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity56, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 700,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity62, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 700,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity66, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 700,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity68, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 700,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity70, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 700,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity1, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity3, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity5, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity7, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity9, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity19, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity27, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity37, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity45, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity55, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity63, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity73, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity75, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity77, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity79, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity81, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 800,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity2, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity4, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity6, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity8, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity10, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity18, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity28, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity36, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity46, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity54, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity64, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity72, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity74, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity76, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity78, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+        Animated.timing(endOpacity80, {
+          toValue: 0.3,
+          useNativeDriver: true,
+          duration: 900,
+          delay: 100,
+        }),
+      ]),
+      Animated.parallel([
+        Animated.timing(endOpacity41, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 200,
+        }),
+        Animated.timing(endOpacity31, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 200,
+        }),
+        Animated.timing(endOpacity33, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 200,
+        }),
+        Animated.timing(endOpacity49, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 200,
+        }),
+        Animated.timing(endOpacity51, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 200,
+        }),
+        Animated.timing(endOpacity32, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 300,
+        }),
+        Animated.timing(endOpacity40, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 300,
+        }),
+        Animated.timing(endOpacity42, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 300,
+        }),
+        Animated.timing(endOpacity50, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 300,
+        }),
+        Animated.timing(endOpacity21, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 400,
+        }),
+        Animated.timing(endOpacity23, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 400,
+        }),
+        Animated.timing(endOpacity25, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 400,
+        }),
+        Animated.timing(endOpacity39, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 400,
+        }),
+        Animated.timing(endOpacity43, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 400,
+        }),
+        Animated.timing(endOpacity57, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 400,
+        }),
+        Animated.timing(endOpacity59, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 400,
+        }),
+        Animated.timing(endOpacity61, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 400,
+        }),
+        Animated.timing(endOpacity22, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 500,
+        }),
+        Animated.timing(endOpacity24, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 500,
+        }),
+        Animated.timing(endOpacity30, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 500,
+        }),
+        Animated.timing(endOpacity34, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 500,
+        }),
+        Animated.timing(endOpacity48, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 500,
+        }),
+        Animated.timing(endOpacity52, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 500,
+        }),
+        Animated.timing(endOpacity58, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 500,
+        }),
+        Animated.timing(endOpacity60, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 500,
+        }),
+        Animated.timing(endOpacity11, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 600,
+        }),
+        Animated.timing(endOpacity13, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 600,
+        }),
+        Animated.timing(endOpacity15, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 600,
+        }),
+
+        Animated.timing(endOpacity17, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 600,
+        }),
+        Animated.timing(endOpacity29, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 600,
+        }),
+        Animated.timing(endOpacity35, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 600,
+        }),
+        Animated.timing(endOpacity47, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 600,
+        }),
+        Animated.timing(endOpacity53, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 600,
+        }),
+        Animated.timing(endOpacity65, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 600,
+        }),
+        Animated.timing(endOpacity67, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 600,
+        }),
+        Animated.timing(endOpacity69, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 600,
+        }),
+        Animated.timing(endOpacity71, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 600,
+        }),
+        Animated.timing(endOpacity12, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 700,
+        }),
+        Animated.timing(endOpacity14, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 700,
+        }),
+        Animated.timing(endOpacity16, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 700,
+        }),
+        Animated.timing(endOpacity20, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 700,
+        }),
+        Animated.timing(endOpacity26, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 700,
+        }),
+        Animated.timing(endOpacity38, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 700,
+        }),
+        Animated.timing(endOpacity44, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 700,
+        }),
+        Animated.timing(endOpacity56, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 700,
+        }),
+        Animated.timing(endOpacity62, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 700,
+        }),
+        Animated.timing(endOpacity66, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 700,
+        }),
+        Animated.timing(endOpacity68, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 700,
+        }),
+        Animated.timing(endOpacity70, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 700,
+        }),
+        Animated.timing(endOpacity1, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity3, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity5, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity7, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity9, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity19, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity27, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity37, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity45, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity55, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity63, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity73, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity75, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity77, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity79, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity81, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(endOpacity2, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+        Animated.timing(endOpacity4, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+        Animated.timing(endOpacity6, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+        Animated.timing(endOpacity8, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+        Animated.timing(endOpacity10, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+        Animated.timing(endOpacity18, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+        Animated.timing(endOpacity28, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+        Animated.timing(endOpacity36, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+        Animated.timing(endOpacity46, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+        Animated.timing(endOpacity54, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+        Animated.timing(endOpacity64, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+        Animated.timing(endOpacity72, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+        Animated.timing(endOpacity74, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+        Animated.timing(endOpacity76, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+        Animated.timing(endOpacity78, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+        Animated.timing(endOpacity80, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 900,
+        }),
+      ]),
+    ]).start();
+  };
+
+  const gameEnd = () => {
+    let finalCounter = 0;
+    for (let i = 0; i <= 81; i++) {
+      if (arrOfFixed1[i]) {
+        finalCounter++;
+      }
+    }
+    if (finalCounter === 80) {
+      setTimeout(() => {
+        runFinishAnimation();
+      }, 2000);
+      setTimeout(() => {
+        switchPause();
+        setGameWon(true);
+      }, 5000);
+      //send time to firebase
+    }
+  };
+
+  const playSound = async () => {
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../../assets/sounds/cameraClick.wav")
+    );
+    setSound(sound);
+    await sound.playAsync();
+  };
+
+  const playSoundPebbel = async () => {
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../../assets/sounds/pebbelsClick.wav")
+    );
+    setSound(sound);
+    await sound.playAsync();
+    console.log("play sound");
   };
 
   useEffect(() => {
@@ -2911,9 +4451,11 @@ const GameScreen3 = ({ route }) => {
       setValue79(res.row9[6]);
       setValue80(res.row9[7]);
       setValue81(res.row9[8]);
+      setShowContent(true);
     };
 
     fetchData();
+
     return () => {
       fetchData;
     };
@@ -2924,9 +4466,11 @@ const GameScreen3 = ({ route }) => {
       updateClock();
       setInterv(setInterval(updateClock, 1000));
     };
-    run();
+    if (showContent) {
+      run();
+    }
     return run;
-  }, []);
+  }, [showContent]);
 
   useEffect(() => {
     const setData = db
@@ -3013,7 +4557,18 @@ const GameScreen3 = ({ route }) => {
           { opacity: blurIntensity, zIndex: blurLayer },
         ]}
       >
-        <BlurView tint="light" intensity={80} style={styles.blurContainer2}>
+        <BlurView tint="light" intensity={85} style={styles.blurContainer2}>
+          {gameWon ? (
+            <View style={styles.containerEnd}>
+              <Text style={styles.textEnd}>
+                Congratulations!!! You won the {route.params.gameType} game!
+              </Text>
+              <Text style={styles.textEnd}>Your time is:</Text>
+              <Timer time={time} gameWon={gameWon} />
+            </View>
+          ) : (
+            <View></View>
+          )}
           <TouchableOpacity onPress={() => navigation.replace("Home")}>
             <View style={styles.playButton}>
               <ImageBackground
@@ -3066,7 +4621,11 @@ const GameScreen3 = ({ route }) => {
             }
           >
             <View style={styles.button}>
-              <Text style={styles.infoTextDown}>Mistake {mistakes}/3</Text>
+              <Text
+                style={darkMode ? styles.infoTextDownDark : styles.infoTextDown}
+              >
+                Mistake {mistakes}/3
+              </Text>
             </View>
           </View>
         </View>
@@ -3079,7 +4638,9 @@ const GameScreen3 = ({ route }) => {
             }
           >
             <View style={styles.button}>
-              <Text style={styles.infoTextDown}>
+              <Text
+                style={darkMode ? styles.infoTextDownDark : styles.infoTextDown}
+              >
                 Game: {route.params.gameType}
               </Text>
             </View>
@@ -4966,7 +6527,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(61)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity61 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity61 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity61 }]
+                    }
                   >
                     {fixed61 ? (
                       <NumField
@@ -5288,9 +6856,59 @@ const GameScreen3 = ({ route }) => {
           <Animated.View
             style={
               darkMode
-                ? styles.buttonContainerDarkMode
+                ? notesOn
+                  ? [
+                      styles.buttonContainerDarkModeOn,
+                      {
+                        borderRadius: infoOpacity.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [25, 15],
+                        }),
+                        transform: [
+                          {
+                            translateY: infoOpacity.interpolate({
+                              inputRange: [0, 1],
+                              outputRange: [0, -10],
+                            }),
+                          },
+                        ],
+                      },
+                    ]
+                  : [
+                      styles.buttonContainerDarkMode,
+                      {
+                        borderRadius: infoOpacity.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [25, 15],
+                        }),
+                        transform: [
+                          {
+                            translateY: infoOpacity.interpolate({
+                              inputRange: [0, 1],
+                              outputRange: [0, -10],
+                            }),
+                          },
+                        ],
+                      },
+                    ]
                 : notesOn
-                ? styles.buttonContainerOn
+                ? [
+                    styles.buttonContainerOn,
+                    {
+                      borderRadius: infoOpacity.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [25, 15],
+                      }),
+                      transform: [
+                        {
+                          translateY: infoOpacity.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: [0, -10],
+                          }),
+                        },
+                      ],
+                    },
+                  ]
                 : [
                     styles.buttonContainer,
                     {
@@ -5312,7 +6930,10 @@ const GameScreen3 = ({ route }) => {
           >
             <TouchableOpacity style={styles.button} onPress={switchNotes}>
               {notesOn ? (
-                <FontAwesomeIcon icon={faStickyNote} />
+                <FontAwesomeIcon
+                  color={darkMode ? "white" : "black"}
+                  icon={faStickyNote}
+                />
               ) : (
                 <FontAwesomeIcon color="grey" icon={faStickyNote} />
               )}
@@ -5329,7 +6950,11 @@ const GameScreen3 = ({ route }) => {
           >
             <TouchableOpacity style={styles.button}>
               <View>
-                <Timer time={time} />
+                {showTime ? (
+                  <Timer time={time} darkMode={darkMode} />
+                ) : (
+                  <View></View>
+                )}
               </View>
             </TouchableOpacity>
           </View>
@@ -5338,7 +6963,9 @@ const GameScreen3 = ({ route }) => {
           <View
             style={
               darkMode
-                ? styles.buttonContainerDarkMode
+                ? pauseOn
+                  ? styles.buttonContainerDarkModeOn
+                  : styles.buttonContainerDarkMode
                 : pauseOn
                 ? styles.buttonContainerOn
                 : styles.buttonContainer
@@ -5348,7 +6975,10 @@ const GameScreen3 = ({ route }) => {
               {pauseOn ? (
                 <FontAwesomeIcon color="grey" icon={faPlay} />
               ) : (
-                <FontAwesomeIcon icon={faPause} />
+                <FontAwesomeIcon
+                  color={darkMode ? "white" : "black"}
+                  icon={faPause}
+                />
               )}
             </TouchableOpacity>
           </View>
@@ -5359,7 +6989,7 @@ const GameScreen3 = ({ route }) => {
       </Animated.View>
     </View>
   ) : (
-    <View style={styles.containerDarkMode}></View>
+    <AnimatedTest></AnimatedTest>
   );
 };
 
