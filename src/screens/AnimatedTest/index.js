@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "black",
+    backgroundColor: "#003645",
   },
   circle: {
     width: 200,

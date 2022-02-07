@@ -1,10 +1,18 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 const Timer = (params) => {
   return (
     <View>
-      <Text>
+      <Text
+        style={
+          params.gameWon
+            ? styles.textEnd
+            : params.darkMode
+            ? styles.textDarkMode
+            : styles.text
+        }
+      >
         {params.time.hour < 10 ? "0" + params.time.hour : params.time.hour}:
         {params.time.minute < 10
           ? "0" + params.time.minute
@@ -19,3 +27,14 @@ const Timer = (params) => {
 };
 
 export default Timer;
+
+const styles = StyleSheet.create({
+  text: {},
+  textEnd: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  textDarkMode: {
+    color: "white",
+  },
+});

@@ -37,6 +37,15 @@ const styles = StyleSheet.create({
   insideBlur: {
     zIndex: 0,
   },
+  containerEnd: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingBottom: 20,
+  },
+  textEnd: {
+    paddingBottom: 10,
+    fontSize: 18,
+  },
   buttonHolderTop: {
     width: Dimensions.get("window").width * 0.35,
     justifyContent: "center",
@@ -186,6 +195,11 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  animatedWrapperDarkMode: {
+    backgroundColor: "#75CDFC",
+    width: "100%",
+    height: "100%",
+  },
   valueStyle: {
     color: "transparent",
   },
@@ -252,7 +266,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#003645",
     height: 50,
-    width: Dimensions.get("window").width * 0.25,
+    width: Dimensions.get("window").width * 0.9,
     borderRadius: 25,
     borderColor: "transparent",
     borderWidth: 1,
@@ -315,7 +329,27 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#003645",
     height: 50,
-    width: Dimensions.get("window").width * 0.9,
+    width: Dimensions.get("window").width * 0.25,
+    borderRadius: 25,
+    borderColor: "transparent",
+    borderWidth: 1,
+    marginTop: 20,
+    shadowColor: "#00A4C5",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 1.36,
+    shadowRadius: 12.68,
+  },
+  buttonContainerDarkModeOn: {
+    paddingHorizontal: 15,
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    backgroundColor: "#003645",
+    height: 48,
+    width: Dimensions.get("window").width * 0.24,
     borderRadius: 25,
     borderColor: "transparent",
     borderWidth: 1,
@@ -436,6 +470,10 @@ const styles = StyleSheet.create({
   },
   infoTextDown: {
     fontWeight: "bold",
+  },
+  infoTextDownDark: {
+    fontWeight: "bold",
+    color: "white",
   },
 });
 
