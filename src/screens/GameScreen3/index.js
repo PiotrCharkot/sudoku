@@ -27,6 +27,7 @@ import {
 //game lost func
 //fix color in dark mode
 //personal statistisk and overall ranking for diff levels
+//changess
 
 const GameScreen3 = ({ route }) => {
   const screenWidth = Dimensions.get("window").width;
