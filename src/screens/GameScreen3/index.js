@@ -48,6 +48,8 @@ const GameScreen3 = ({ route }) => {
   const [showTime, setShowTime] = useState(true);
   const [soundOn, setSoundOn] = useState(true);
   const [sound, setSound] = useState();
+  const [numberOfGames, setNumberOfGames] = 0;
+  const [numberOfFinishedGames, setNumberOfFinishedGames] = 0;
   const [gameWon, setGameWon] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [notesOn, setNotesOn] = useState(false);
@@ -2013,7 +2015,7 @@ const GameScreen3 = ({ route }) => {
   };
 
   const pressedSquare = (ind) => {
-    console.log("nuuuuuuumer", ind);
+    console.log("numer", ind);
     arrOfChoice1.forEach((el) => el(false));
     if (!arrOfFixed1[ind - 1]) {
       arrOfChoice1[ind - 1](!arrOfChoice[ind - 1]);
@@ -2144,6 +2146,8 @@ const GameScreen3 = ({ route }) => {
     setDarkMode(doc.data().darkMode);
     setShowTime(doc.data().showTimer);
     setSoundOn(doc.data().soundOn);
+    // setNumberOfGames(doc.data().numberOfGames);
+    // setNumberOfFinishedGames(doc.data().numberOfFinishedGames);
   };
 
   const runEndAnimation = ([p1, p2, p3, p4, p5, p6, p7, p8, p9], type) => {
@@ -4345,6 +4349,15 @@ const GameScreen3 = ({ route }) => {
         setGameWon(true);
       }, 5000);
       //send time to firebase
+      // db.collection("usersData")
+      //   .doc(auth.currentUser.uid)
+      //   .update({
+      //     numberOfFinishedGames: numberOfFinishedGames + 1,
+      //   })
+      //   .then(() => {
+      //     console.log("number of fished games is updated");
+      //   })
+      //   .catch((err) => console.log(err));
     }
   };
 
@@ -4460,6 +4473,24 @@ const GameScreen3 = ({ route }) => {
       fetchData;
     };
   }, []);
+
+  // useEffect(() => {
+  //   const updateGameNumber = () => {
+  //     db.collection("usersData")
+  //       .doc(auth.currentUser.uid)
+  //       .update({
+  //         numberOfGames: numberOfGames + 1,
+  //       })
+  //       .then(() => {
+  //         console.log("game number updated 15 sec after start");
+  //       })
+  //       .catch((err) => console.log(err));
+  //   };
+  //   setTimeout(() => {
+  //     updateGameNumber();
+  //   }, 15000);
+  //   return updateGameNumber;
+  // }, []);
 
   useEffect(() => {
     const run = () => {
