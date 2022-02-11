@@ -27,6 +27,7 @@ import {
 //game lost func
 //fix color in dark mode
 //personal statistisk and overall ranking for diff levels
+//changess!
 
 const GameScreen3 = ({ route }) => {
   const screenWidth = Dimensions.get("window").width;
@@ -46,7 +47,7 @@ const GameScreen3 = ({ route }) => {
   ];
   const [darkMode, setDarkMode] = useState(false);
   const [showTime, setShowTime] = useState(true);
-  const [soundOn, setSoundOn] = useState(true);
+  const [soundOn, setSoundOn] = useState(true); 
   const [sound, setSound] = useState();
   const [numberOfGames, setNumberOfGames] = 0;
   const [numberOfFinishedGames, setNumberOfFinishedGames] = 0;
@@ -241,7 +242,7 @@ const GameScreen3 = ({ route }) => {
   const [fixed15, setFixed15] = useState(true);
   const [fixed16, setFixed16] = useState(true);
   const [fixed17, setFixed17] = useState(true);
-  const [fixed18, setFixed18] = useState(true);
+  const [fixed18, setFixed18] = useState(false);
   const [fixed19, setFixed19] = useState(false);
   const [fixed20, setFixed20] = useState(true);
   const [fixed21, setFixed21] = useState(true);
