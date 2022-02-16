@@ -40,6 +40,10 @@ const HomeScreen = () => {
                   darkMode: false,
                   showTimer: true,
                   soundOn: true,
+                  bestTime: 0,
+                  numberOfFinishedGames: 0,
+                  numberOfGames: 0,
+                  totalTime: 0,
                 })
               )
               .catch((error) => alert(error.message));

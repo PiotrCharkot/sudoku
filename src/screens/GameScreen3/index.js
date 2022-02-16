@@ -47,7 +47,12 @@ const GameScreen3 = ({ route }) => {
   ];
   const [darkMode, setDarkMode] = useState(false);
   const [showTime, setShowTime] = useState(true);
-  const [soundOn, setSoundOn] = useState(true); 
+  const [soundOn, setSoundOn] = useState(true);
+  const [incGameNum, setIncGameNum] = useState(false);
+  const [numberOfGames, setNumberOfGames] = useState(-1);
+  const [finishedGames, setFinishedGames] = useState(0);
+  const [totalTime, setTotalTime] = useState(0);
+  const [bestTime, setBestTime] = useState(0);
   const [sound, setSound] = useState();
   const [gameWon, setGameWon] = useState(false);
   const [showContent, setShowContent] = useState(false);
@@ -55,7 +60,6 @@ const GameScreen3 = ({ route }) => {
   const [pauseOn, setPauseOn] = useState(false);
   const [blurLayer, setBlurLayer] = useState(0);
   const [time, setTime] = useState({ hour: 0, minute: 0, second: 0 });
-  const [interv, setInterv] = useState();
   const [dummy, setDummy] = useState(false);
   const [mistakes, setMistakes] = useState(0);
   const [message, setMessage] = useState(
@@ -2000,19 +2004,6 @@ const GameScreen3 = ({ route }) => {
     updateM = time.minute,
     updateS = time.second;
 
-  const updateClock = () => {
-    if (updateM === 60) {
-      updateH++;
-      updateM = 0;
-    }
-    if (updateS === 60) {
-      updateM++;
-      updateS = 0;
-    }
-    updateS++;
-    return setTime({ hour: updateH, minute: updateM, second: updateS });
-  };
-
   const pressedSquare = (ind) => {
     console.log("nuuuuuuumer", ind);
     arrOfChoice1.forEach((el) => el(false));
@@ -2039,7 +2030,6 @@ const GameScreen3 = ({ route }) => {
 
   const switchPause = () => {
     if (!pauseOn) {
-      clearInterval(interv);
       setBlurLayer(2);
       Animated.timing(blurIntensity, {
         toValue: 1,
@@ -2048,10 +2038,6 @@ const GameScreen3 = ({ route }) => {
       }).start();
     } else if (pauseOn) {
       setTimeout(() => {
-        if (!gameWon) {
-          updateClock();
-          setInterv(setInterval(updateClock, 1000));
-        }
         setBlurLayer(0);
       }, 1000);
       Animated.timing(blurIntensity, {
@@ -2095,6 +2081,10 @@ const GameScreen3 = ({ route }) => {
     }
   };
 
+  const incNum = () => {
+    setIncGameNum(true);
+  };
+
   const chooseNumber = (num) => {
     if (notesOn) {
       updateNotes(num);
@@ -2106,6 +2096,7 @@ const GameScreen3 = ({ route }) => {
         playSoundPebbel();
       }
       runAnimation();
+      incNum();
     } else if (
       arrOFValues[choosenNum - 1] !== num.toString() &&
       choosenNum !== "A"
@@ -2145,6 +2136,10 @@ const GameScreen3 = ({ route }) => {
     setDarkMode(doc.data().darkMode);
     setShowTime(doc.data().showTimer);
     setSoundOn(doc.data().soundOn);
+    setNumberOfGames(doc.data().numberOfGames);
+    setFinishedGames(doc.data().numberOfFinishedGames);
+    setBestTime(doc.data().bestTime);
+    setTotalTime(doc.data().totalTime);
   };
 
   const runEndAnimation = ([p1, p2, p3, p4, p5, p6, p7, p8, p9], type) => {
@@ -2316,6 +2311,7 @@ const GameScreen3 = ({ route }) => {
     let finalArr = [];
     let startIndex = 0;
     if (type === "row") {
+      gameEnd();
       startIndex = choosenNum % 9;
       if (startIndex > 0) {
         startIndex--;
@@ -2435,7 +2431,6 @@ const GameScreen3 = ({ route }) => {
       ) {
         startIndex = 8;
       }
-      gameEnd();
     }
 
     let frontPart = arr.slice(0, startIndex);
@@ -4338,14 +4333,37 @@ const GameScreen3 = ({ route }) => {
       }
     }
     if (finalCounter === 80) {
+      setGameWon(true);
       setTimeout(() => {
         runFinishAnimation();
-      }, 2000);
+      }, 6000);
       setTimeout(() => {
         switchPause();
-        setGameWon(true);
-      }, 5000);
+        (() => {
+          let tempTotalTime = totalTime + updateS;
+          db.collection("usersData")
+            .doc(auth.currentUser.uid)
+            .update({
+              totalTime: tempTotalTime,
+            })
+            .then(() => {
+              console.log("update total time");
+            })
+            .catch((err) => console.log(err));
+        })();
+      }, 9000);
       //send time to firebase
+
+      let tempNumber = finishedGames + 1;
+      db.collection("usersData")
+        .doc(auth.currentUser.uid)
+        .update({
+          numberOfFinishedGames: tempNumber,
+        })
+        .then(() => {
+          console.log("number of finished games plus one");
+        })
+        .catch((err) => console.log(err));
     }
   };
 
@@ -4463,15 +4481,31 @@ const GameScreen3 = ({ route }) => {
   }, []);
 
   useEffect(() => {
-    const run = () => {
-      updateClock();
-      setInterv(setInterval(updateClock, 1000));
-    };
-    if (showContent) {
-      run();
+    if (showContent && !gameWon) {
+      let int = setInterval(() => {
+        if (updateM === 60) {
+          updateH++;
+          updateM = 0;
+        }
+        if (updateS === 60) {
+          updateM++;
+          updateS = 0;
+        }
+        updateS++;
+        return setTime({ hour: updateH, minute: updateM, second: updateS });
+      }, 1000);
+
+      if (gameWon) {
+        clearInterval(int);
+      }
+
+      if (pauseOn) {
+        clearInterval(int);
+      }
+
+      return () => clearInterval(int);
     }
-    return run;
-  }, [showContent]);
+  }, [showContent, pauseOn, gameWon]);
 
   useEffect(() => {
     const setData = db
@@ -4530,6 +4564,28 @@ const GameScreen3 = ({ route }) => {
     setAnim();
     return setAnim;
   }, [mistakes]);
+
+  useEffect(() => {
+    const setNumber = () => {
+      console.log("is running");
+      if (numberOfGames >= 0) {
+        let tempNumber = numberOfGames + 1;
+        db.collection("usersData")
+          .doc(auth.currentUser.uid)
+          .update({
+            numberOfGames: tempNumber,
+          })
+          .then(() => {
+            console.log("number of games plus one");
+          })
+          .catch((err) => console.log(err));
+      }
+    };
+
+    setNumber();
+
+    return setNumber;
+  }, [incGameNum]);
 
   return showContent ? (
     <View style={darkMode ? styles.containerDarkMode : styles.container}>

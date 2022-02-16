@@ -24,11 +24,19 @@ const RegisterScreen = () => {
   const [anonymousDarkMode, setAnonymousDarkMode] = useState("");
   const [anonymousShowTimer, setAnonymousShowTimer] = useState("");
   const [anonymousSoundOn, setAnonymousSoundOn] = useState("");
+  const [anonymousBestTime, setAnonymousBestTime] = useState(0);
+  const [anonymousNumberOfGames, setAnonymousNumberOfGames] = useState(0);
+  const [anonymousFinishedGames, setAnonymousFinishedGames] = useState(0);
+  const [anonymousTotalTime, setAnonymousTotalTime] = useState(0);
 
   const getDataFromFB = (doc) => {
     setAnonymousDarkMode(doc.data().darkMode);
     setAnonymousShowTimer(doc.data().showTimer);
     setAnonymousSoundOn(doc.data().soundOn);
+    setAnonymousBestTime(doc.data().bestTime);
+    setAnonymousNumberOfGames(doc.data().numberOfGames);
+    setAnonymousFinishedGames(doc.data().numberOfFinishedGames);
+    setAnonymousTotalTime(doc.data().totalTime);
   };
 
   useEffect(() => {
@@ -63,6 +71,10 @@ const RegisterScreen = () => {
               darkMode: anonymousDarkMode,
               showTimer: anonymousShowTimer,
               soundOn: anonymousSoundOn,
+              bestTime: anonymousBestTime,
+              numberOfFinishedGames: anonymousFinishedGames,
+              numberOfGames: anonymousNumberOfGames,
+              totalTime: anonymousTotalTime,
             })
           )
           .catch((error) => alert(error.message));
