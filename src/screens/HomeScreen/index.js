@@ -14,6 +14,7 @@ import { db, auth } from "../firebase";
 const HomeScreen = () => {
   const [loaded] = useFonts({
     CaveatBold: require("../../../assets/fonts/Caveat-Bold.ttf"),
+    Caveat: require("../../../assets/fonts/SyneMono.ttf"),
   });
 
   const [loged, setLoged] = useState(false);
@@ -44,6 +45,18 @@ const HomeScreen = () => {
                   numberOfFinishedGames: 0,
                   numberOfGames: 0,
                   totalTime: 0,
+                  bestTimeM: 0,
+                  numberOfFinishedGamesM: 0,
+                  numberOfGamesM: 0,
+                  totalTimeM: 0,
+                  bestTimeH: 0,
+                  numberOfFinishedGamesH: 0,
+                  numberOfGamesH: 0,
+                  totalTimeH: 0,
+                  bestTimeP: 0,
+                  numberOfFinishedGamesP: 0,
+                  numberOfGamesP: 0,
+                  totalTimeP: 0,
                 })
               )
               .catch((error) => alert(error.message));
@@ -92,12 +105,12 @@ const HomeScreen = () => {
               >
                 <Text
                   style={{
-                    fontFamily: "CaveatBold",
-                    fontSize: 40,
+                    fontFamily: "Caveat",
+                    fontSize: 30,
                     color: "#003645",
                   }}
                 >
-                  <Text> </Text> Play <Text> </Text>
+                  Play
                 </Text>
               </ImageBackground>
             </View>
@@ -118,12 +131,12 @@ const HomeScreen = () => {
                 >
                   <Text
                     style={{
-                      fontFamily: "CaveatBold",
-                      fontSize: 40,
+                      fontFamily: "Caveat",
+                      fontSize: 30,
                       color: "#003645",
                     }}
                   >
-                    <Text> </Text> Log out<Text> </Text>
+                    Log out
                   </Text>
                 </ImageBackground>
               </View>
@@ -139,19 +152,19 @@ const HomeScreen = () => {
                 >
                   <Text
                     style={{
-                      fontFamily: "CaveatBold",
-                      fontSize: 40,
+                      fontFamily: "Caveat",
+                      fontSize: 30,
                       color: "#003645",
                     }}
                   >
-                    <Text> </Text> Log in<Text> </Text>
+                    Log in
                   </Text>
                 </ImageBackground>
               </View>
             </TouchableOpacity>
           )}
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Ranking")}>
             <View style={styles.playButton}>
               <ImageBackground
                 source={require("../../../assets/buttonBackground.png")}
@@ -161,12 +174,12 @@ const HomeScreen = () => {
               >
                 <Text
                   style={{
-                    fontFamily: "CaveatBold",
-                    fontSize: 40,
+                    fontFamily: "Caveat",
+                    fontSize: 30,
                     color: "#003645",
                   }}
                 >
-                  <Text> </Text> Top Scores<Text> </Text>
+                  Results
                 </Text>
               </ImageBackground>
             </View>
@@ -182,12 +195,12 @@ const HomeScreen = () => {
               >
                 <Text
                   style={{
-                    fontFamily: "CaveatBold",
-                    fontSize: 40,
+                    fontFamily: "Caveat",
+                    fontSize: 30,
                     color: "#003645",
                   }}
                 >
-                  <Text> </Text> Settings<Text> </Text>
+                  Settings
                 </Text>
               </ImageBackground>
             </View>

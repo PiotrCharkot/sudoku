@@ -23,11 +23,7 @@ import {
   faStickyNote,
 } from "@fortawesome/free-solid-svg-icons";
 
-//send data fo firebase
-//game lost func
-//fix color in dark mode
-//personal statistisk and overall ranking for diff levels
-//changess!
+//game lost fun
 
 const GameScreen3 = ({ route }) => {
   const screenWidth = Dimensions.get("window").width;
@@ -53,8 +49,21 @@ const GameScreen3 = ({ route }) => {
   const [finishedGames, setFinishedGames] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
   const [bestTime, setBestTime] = useState(0);
+  const [numberOfGamesM, setNumberOfGamesM] = useState(-1);
+  const [finishedGamesM, setFinishedGamesM] = useState(0);
+  const [totalTimeM, setTotalTimeM] = useState(0);
+  const [bestTimeM, setBestTimeM] = useState(0);
+  const [numberOfGamesH, setNumberOfGamesH] = useState(-1);
+  const [finishedGamesH, setFinishedGamesH] = useState(0);
+  const [totalTimeH, setTotalTimeH] = useState(0);
+  const [bestTimeH, setBestTimeH] = useState(0);
+  const [numberOfGamesP, setNumberOfGamesP] = useState(-1);
+  const [finishedGamesP, setFinishedGamesP] = useState(0);
+  const [totalTimeP, setTotalTimeP] = useState(0);
+  const [bestTimeP, setBestTimeP] = useState(0);
   const [sound, setSound] = useState();
   const [gameWon, setGameWon] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [notesOn, setNotesOn] = useState(false);
   const [pauseOn, setPauseOn] = useState(false);
@@ -227,87 +236,87 @@ const GameScreen3 = ({ route }) => {
   const [value79, setValue79] = useState("");
   const [value80, setValue80] = useState("");
   const [value81, setValue81] = useState("");
-  const [fixed1, setFixed1] = useState(true);
-  const [fixed2, setFixed2] = useState(true);
-  const [fixed3, setFixed3] = useState(true);
-  const [fixed4, setFixed4] = useState(true);
-  const [fixed5, setFixed5] = useState(true);
-  const [fixed6, setFixed6] = useState(true);
-  const [fixed7, setFixed7] = useState(true);
-  const [fixed8, setFixed8] = useState(true);
-  const [fixed9, setFixed9] = useState(true);
-  const [fixed10, setFixed10] = useState(true);
-  const [fixed11, setFixed11] = useState(true);
-  const [fixed12, setFixed12] = useState(true);
-  const [fixed13, setFixed13] = useState(true);
-  const [fixed14, setFixed14] = useState(true);
-  const [fixed15, setFixed15] = useState(true);
-  const [fixed16, setFixed16] = useState(true);
-  const [fixed17, setFixed17] = useState(true);
+  const [fixed1, setFixed1] = useState(false);
+  const [fixed2, setFixed2] = useState(false);
+  const [fixed3, setFixed3] = useState(false);
+  const [fixed4, setFixed4] = useState(false);
+  const [fixed5, setFixed5] = useState(false);
+  const [fixed6, setFixed6] = useState(false);
+  const [fixed7, setFixed7] = useState(false);
+  const [fixed8, setFixed8] = useState(false);
+  const [fixed9, setFixed9] = useState(false);
+  const [fixed10, setFixed10] = useState(false);
+  const [fixed11, setFixed11] = useState(false);
+  const [fixed12, setFixed12] = useState(false);
+  const [fixed13, setFixed13] = useState(false);
+  const [fixed14, setFixed14] = useState(false);
+  const [fixed15, setFixed15] = useState(false);
+  const [fixed16, setFixed16] = useState(false);
+  const [fixed17, setFixed17] = useState(false);
   const [fixed18, setFixed18] = useState(false);
   const [fixed19, setFixed19] = useState(false);
-  const [fixed20, setFixed20] = useState(true);
-  const [fixed21, setFixed21] = useState(true);
-  const [fixed22, setFixed22] = useState(true);
-  const [fixed23, setFixed23] = useState(true);
-  const [fixed24, setFixed24] = useState(true);
-  const [fixed25, setFixed25] = useState(true);
-  const [fixed26, setFixed26] = useState(true);
+  const [fixed20, setFixed20] = useState(false);
+  const [fixed21, setFixed21] = useState(false);
+  const [fixed22, setFixed22] = useState(false);
+  const [fixed23, setFixed23] = useState(false);
+  const [fixed24, setFixed24] = useState(false);
+  const [fixed25, setFixed25] = useState(false);
+  const [fixed26, setFixed26] = useState(false);
   const [fixed27, setFixed27] = useState(false);
-  const [fixed28, setFixed28] = useState(true);
-  const [fixed29, setFixed29] = useState(true);
-  const [fixed30, setFixed30] = useState(true);
-  const [fixed31, setFixed31] = useState(true);
-  const [fixed32, setFixed32] = useState(true);
-  const [fixed33, setFixed33] = useState(true);
-  const [fixed34, setFixed34] = useState(true);
-  const [fixed35, setFixed35] = useState(true);
-  const [fixed36, setFixed36] = useState(true);
-  const [fixed37, setFixed37] = useState(true);
-  const [fixed38, setFixed38] = useState(true);
-  const [fixed39, setFixed39] = useState(true);
-  const [fixed40, setFixed40] = useState(true);
-  const [fixed41, setFixed41] = useState(true);
-  const [fixed42, setFixed42] = useState(true);
-  const [fixed43, setFixed43] = useState(true);
-  const [fixed44, setFixed44] = useState(true);
-  const [fixed45, setFixed45] = useState(true);
+  const [fixed28, setFixed28] = useState(false);
+  const [fixed29, setFixed29] = useState(false);
+  const [fixed30, setFixed30] = useState(false);
+  const [fixed31, setFixed31] = useState(false);
+  const [fixed32, setFixed32] = useState(false);
+  const [fixed33, setFixed33] = useState(false);
+  const [fixed34, setFixed34] = useState(false);
+  const [fixed35, setFixed35] = useState(false);
+  const [fixed36, setFixed36] = useState(false);
+  const [fixed37, setFixed37] = useState(false);
+  const [fixed38, setFixed38] = useState(false);
+  const [fixed39, setFixed39] = useState(false);
+  const [fixed40, setFixed40] = useState(false);
+  const [fixed41, setFixed41] = useState(false);
+  const [fixed42, setFixed42] = useState(false);
+  const [fixed43, setFixed43] = useState(false);
+  const [fixed44, setFixed44] = useState(false);
+  const [fixed45, setFixed45] = useState(false);
   const [fixed46, setFixed46] = useState(false);
-  const [fixed47, setFixed47] = useState(true);
-  const [fixed48, setFixed48] = useState(true);
-  const [fixed49, setFixed49] = useState(true);
-  const [fixed50, setFixed50] = useState(true);
-  const [fixed51, setFixed51] = useState(true);
-  const [fixed52, setFixed52] = useState(true);
-  const [fixed53, setFixed53] = useState(true);
-  const [fixed54, setFixed54] = useState(true);
-  const [fixed55, setFixed55] = useState(true);
-  const [fixed56, setFixed56] = useState(true);
-  const [fixed57, setFixed57] = useState(true);
-  const [fixed58, setFixed58] = useState(true);
-  const [fixed59, setFixed59] = useState(true);
-  const [fixed60, setFixed60] = useState(true);
-  const [fixed61, setFixed61] = useState(true);
-  const [fixed62, setFixed62] = useState(true);
-  const [fixed63, setFixed63] = useState(true);
-  const [fixed64, setFixed64] = useState(true);
-  const [fixed65, setFixed65] = useState(true);
-  const [fixed66, setFixed66] = useState(true);
-  const [fixed67, setFixed67] = useState(true);
-  const [fixed68, setFixed68] = useState(true);
-  const [fixed69, setFixed69] = useState(true);
-  const [fixed70, setFixed70] = useState(true);
-  const [fixed71, setFixed71] = useState(true);
-  const [fixed72, setFixed72] = useState(true);
-  const [fixed73, setFixed73] = useState(true);
-  const [fixed74, setFixed74] = useState(true);
-  const [fixed75, setFixed75] = useState(true);
-  const [fixed76, setFixed76] = useState(true);
-  const [fixed77, setFixed77] = useState(true);
-  const [fixed78, setFixed78] = useState(true);
-  const [fixed79, setFixed79] = useState(true);
-  const [fixed80, setFixed80] = useState(true);
-  const [fixed81, setFixed81] = useState(true);
+  const [fixed47, setFixed47] = useState(false);
+  const [fixed48, setFixed48] = useState(false);
+  const [fixed49, setFixed49] = useState(false);
+  const [fixed50, setFixed50] = useState(false);
+  const [fixed51, setFixed51] = useState(false);
+  const [fixed52, setFixed52] = useState(false);
+  const [fixed53, setFixed53] = useState(false);
+  const [fixed54, setFixed54] = useState(false);
+  const [fixed55, setFixed55] = useState(false);
+  const [fixed56, setFixed56] = useState(false);
+  const [fixed57, setFixed57] = useState(false);
+  const [fixed58, setFixed58] = useState(false);
+  const [fixed59, setFixed59] = useState(false);
+  const [fixed60, setFixed60] = useState(false);
+  const [fixed61, setFixed61] = useState(false);
+  const [fixed62, setFixed62] = useState(false);
+  const [fixed63, setFixed63] = useState(false);
+  const [fixed64, setFixed64] = useState(false);
+  const [fixed65, setFixed65] = useState(false);
+  const [fixed66, setFixed66] = useState(false);
+  const [fixed67, setFixed67] = useState(false);
+  const [fixed68, setFixed68] = useState(false);
+  const [fixed69, setFixed69] = useState(false);
+  const [fixed70, setFixed70] = useState(false);
+  const [fixed71, setFixed71] = useState(false);
+  const [fixed72, setFixed72] = useState(false);
+  const [fixed73, setFixed73] = useState(false);
+  const [fixed74, setFixed74] = useState(false);
+  const [fixed75, setFixed75] = useState(false);
+  const [fixed76, setFixed76] = useState(false);
+  const [fixed77, setFixed77] = useState(false);
+  const [fixed78, setFixed78] = useState(false);
+  const [fixed79, setFixed79] = useState(false);
+  const [fixed80, setFixed80] = useState(false);
+  const [fixed81, setFixed81] = useState(false);
   const [choosenNum, setChoosenNum] = useState("A");
   const [notes, setNotes] = useState([
     {
@@ -2005,20 +2014,22 @@ const GameScreen3 = ({ route }) => {
     updateS = time.second;
 
   const pressedSquare = (ind) => {
-    console.log("nuuuuuuumer", ind);
-    arrOfChoice1.forEach((el) => el(false));
-    if (!arrOfFixed1[ind - 1]) {
-      arrOfChoice1[ind - 1](!arrOfChoice[ind - 1]);
-      if (!arrOfChoice[ind - 1]) {
-        setChoosenNum(ind);
+    if (!gameOver) {
+      console.log("choosen square:", ind);
+      arrOfChoice1.forEach((el) => el(false));
+      if (!arrOfFixed1[ind - 1]) {
+        arrOfChoice1[ind - 1](!arrOfChoice[ind - 1]);
+        if (!arrOfChoice[ind - 1]) {
+          setChoosenNum(ind);
+        } else {
+          setChoosenNum("A");
+        }
       } else {
         setChoosenNum("A");
       }
-    } else {
-      setChoosenNum("A");
-    }
-    if (soundOn) {
-      playSound();
+      if (soundOn) {
+        playSound();
+      }
     }
   };
 
@@ -2119,7 +2130,10 @@ const GameScreen3 = ({ route }) => {
         setMessage(() => {
           return tempMessage2;
         });
-        //add view with choice of another game
+        setGameOver(true);
+        setTimeout(() => {
+          switchPause();
+        }, 3000);
       }
     }
     console.log(
@@ -2140,6 +2154,21 @@ const GameScreen3 = ({ route }) => {
     setFinishedGames(doc.data().numberOfFinishedGames);
     setBestTime(doc.data().bestTime);
     setTotalTime(doc.data().totalTime);
+
+    setNumberOfGamesM(doc.data().numberOfGamesM);
+    setFinishedGamesM(doc.data().numberOfFinishedGamesM);
+    setBestTimeM(doc.data().bestTimeM);
+    setTotalTimeM(doc.data().totalTimeM);
+
+    setNumberOfGamesH(doc.data().numberOfGamesH);
+    setFinishedGamesH(doc.data().numberOfFinishedGamesH);
+    setBestTimeH(doc.data().bestTimeH);
+    setTotalTimeH(doc.data().totalTimeH);
+
+    setNumberOfGamesP(doc.data().numberOfGamesP);
+    setFinishedGamesP(doc.data().numberOfFinishedGamesP);
+    setBestTimeP(doc.data().bestTimeP);
+    setTotalTimeP(doc.data().totalTimeP);
   };
 
   const runEndAnimation = ([p1, p2, p3, p4, p5, p6, p7, p8, p9], type) => {
@@ -4340,30 +4369,151 @@ const GameScreen3 = ({ route }) => {
       setTimeout(() => {
         switchPause();
         (() => {
-          let tempTotalTime = totalTime + updateS;
-          db.collection("usersData")
-            .doc(auth.currentUser.uid)
-            .update({
-              totalTime: tempTotalTime,
-            })
-            .then(() => {
-              console.log("update total time");
-            })
-            .catch((err) => console.log(err));
+          if (route.params.gameType === "Easy") {
+            let tempTotalTime =
+              totalTime + updateH * 3600 + updateM * 60 + updateS;
+            let tempBestTime = updateH * 3600 + updateM * 60 + updateS;
+            if (bestTime > tempBestTime || bestTime === 0) {
+              db.collection("usersData")
+                .doc(auth.currentUser.uid)
+                .update({
+                  bestTime: tempBestTime,
+                })
+                .then(() => {
+                  console.log("update best time");
+                })
+                .catch((err) => console.log(err));
+            }
+            db.collection("usersData")
+              .doc(auth.currentUser.uid)
+              .update({
+                totalTime: tempTotalTime,
+              })
+              .then(() => {
+                console.log("update total time");
+              })
+              .catch((err) => console.log(err));
+          } else if (route.params.gameType === "Medium") {
+            let tempTotalTime =
+              totalTimeM + updateH * 3600 + updateM * 60 + updateS;
+            let tempBestTime = updateH * 3600 + updateM * 60 + updateS;
+            if (bestTimeM > tempBestTime || bestTimeM === 0) {
+              db.collection("usersData")
+                .doc(auth.currentUser.uid)
+                .update({
+                  bestTimeM: tempBestTime,
+                })
+                .then(() => {
+                  console.log("update best Mtime");
+                })
+                .catch((err) => console.log(err));
+            }
+            db.collection("usersData")
+              .doc(auth.currentUser.uid)
+              .update({
+                totalTimeM: tempTotalTime,
+              })
+              .then(() => {
+                console.log("update total Mtime");
+              })
+              .catch((err) => console.log(err));
+          } else if (route.params.gameType === "Hard") {
+            let tempTotalTime =
+              totalTimeH + updateH * 3600 + updateM * 60 + updateS;
+            let tempBestTime = updateH * 3600 + updateM * 60 + updateS;
+            if (bestTimeH > tempBestTime || bestTimeH === 0) {
+              db.collection("usersData")
+                .doc(auth.currentUser.uid)
+                .update({
+                  bestTimeH: tempBestTime,
+                })
+                .then(() => {
+                  console.log("update best Htime");
+                })
+                .catch((err) => console.log(err));
+            }
+            db.collection("usersData")
+              .doc(auth.currentUser.uid)
+              .update({
+                totalTimeH: tempTotalTime,
+              })
+              .then(() => {
+                console.log("update total Htime");
+              })
+              .catch((err) => console.log(err));
+          } else if (route.params.gameType === "Pro") {
+            let tempTotalTime =
+              totalTimeP + updateH * 3600 + updateM * 60 + updateS;
+            let tempBestTime = updateH * 3600 + updateM * 60 + updateS;
+            if (bestTimeP > tempBestTime || bestTimeP === 0) {
+              db.collection("usersData")
+                .doc(auth.currentUser.uid)
+                .update({
+                  bestTimeP: tempBestTime,
+                })
+                .then(() => {
+                  console.log("update best Ptime");
+                })
+                .catch((err) => console.log(err));
+            }
+            db.collection("usersData")
+              .doc(auth.currentUser.uid)
+              .update({
+                totalTimeP: tempTotalTime,
+              })
+              .then(() => {
+                console.log("update total Ptime");
+              })
+              .catch((err) => console.log(err));
+          }
         })();
       }, 9000);
-      //send time to firebase
 
-      let tempNumber = finishedGames + 1;
-      db.collection("usersData")
-        .doc(auth.currentUser.uid)
-        .update({
-          numberOfFinishedGames: tempNumber,
-        })
-        .then(() => {
-          console.log("number of finished games plus one");
-        })
-        .catch((err) => console.log(err));
+      if (route.params.gameType === "Easy") {
+        let tempNumber = finishedGames + 1;
+        db.collection("usersData")
+          .doc(auth.currentUser.uid)
+          .update({
+            numberOfFinishedGames: tempNumber,
+          })
+          .then(() => {
+            console.log("number of finished games plus one");
+          })
+          .catch((err) => console.log(err));
+      } else if (route.params.gameType === "Medium") {
+        let tempNumber = finishedGamesM + 1;
+        db.collection("usersData")
+          .doc(auth.currentUser.uid)
+          .update({
+            numberOfFinishedGamesM: tempNumber,
+          })
+          .then(() => {
+            console.log("number of finished Mgames plus one");
+          })
+          .catch((err) => console.log(err));
+      } else if (route.params.gameType === "Hard") {
+        let tempNumber = finishedGamesH + 1;
+        db.collection("usersData")
+          .doc(auth.currentUser.uid)
+          .update({
+            numberOfFinishedGamesH: tempNumber,
+          })
+          .then(() => {
+            console.log("number of finished Hgames plus one");
+          })
+          .catch((err) => console.log(err));
+      } else if (route.params.gameType === "Pro") {
+        let tempNumber = finishedGamesP + 1;
+        db.collection("usersData")
+          .doc(auth.currentUser.uid)
+          .update({
+            numberOfFinishedGamesP: tempNumber,
+          })
+          .then(() => {
+            console.log("number of finished Pgames plus one");
+          })
+          .catch((err) => console.log(err));
+      }
     }
   };
 
@@ -4483,13 +4633,13 @@ const GameScreen3 = ({ route }) => {
   useEffect(() => {
     if (showContent && !gameWon) {
       let int = setInterval(() => {
-        if (updateM === 60) {
+        if (updateM === 59 && updateS === 59) {
           updateH++;
           updateM = 0;
         }
-        if (updateS === 60) {
+        if (updateS === 59) {
           updateM++;
-          updateS = 0;
+          updateS = -1;
         }
         updateS++;
         return setTime({ hour: updateH, minute: updateM, second: updateS });
@@ -4567,18 +4717,58 @@ const GameScreen3 = ({ route }) => {
 
   useEffect(() => {
     const setNumber = () => {
-      console.log("is running");
-      if (numberOfGames >= 0) {
-        let tempNumber = numberOfGames + 1;
-        db.collection("usersData")
-          .doc(auth.currentUser.uid)
-          .update({
-            numberOfGames: tempNumber,
-          })
-          .then(() => {
-            console.log("number of games plus one");
-          })
-          .catch((err) => console.log(err));
+      if (route.params.gameType === "Easy") {
+        if (numberOfGames >= 0) {
+          let tempNumber = numberOfGames + 1;
+          db.collection("usersData")
+            .doc(auth.currentUser.uid)
+            .update({
+              numberOfGames: tempNumber,
+            })
+            .then(() => {
+              console.log("number of games plus one");
+            })
+            .catch((err) => console.log(err));
+        }
+      } else if (route.params.gameType === "Medium") {
+        if (numberOfGamesM >= 0) {
+          let tempNumber = numberOfGamesM + 1;
+          db.collection("usersData")
+            .doc(auth.currentUser.uid)
+            .update({
+              numberOfGamesM: tempNumber,
+            })
+            .then(() => {
+              console.log("number of Mgames plus one");
+            })
+            .catch((err) => console.log(err));
+        }
+      } else if (route.params.gameType === "Hard") {
+        if (numberOfGamesH >= 0) {
+          let tempNumber = numberOfGamesH + 1;
+          db.collection("usersData")
+            .doc(auth.currentUser.uid)
+            .update({
+              numberOfGamesH: tempNumber,
+            })
+            .then(() => {
+              console.log("number of Hgames plus one");
+            })
+            .catch((err) => console.log(err));
+        }
+      } else if (route.params.gameType === "Pro") {
+        if (numberOfGamesP >= 0) {
+          let tempNumber = numberOfGamesP + 1;
+          db.collection("usersData")
+            .doc(auth.currentUser.uid)
+            .update({
+              numberOfGamesP: tempNumber,
+            })
+            .then(() => {
+              console.log("number of Pgames plus one");
+            })
+            .catch((err) => console.log(err));
+        }
       }
     };
 
@@ -4586,6 +4776,46 @@ const GameScreen3 = ({ route }) => {
 
     return setNumber;
   }, [incGameNum]);
+
+  useEffect(() => {
+    const showNum = () => {
+      let multiplier = 0;
+      let trueCounter = 0;
+      if (route.params.gameType === "Easy") {
+        multiplier = 44;
+      } else if (route.params.gameType === "Medium") {
+        multiplier = 38;
+      } else if (route.params.gameType === "Hard") {
+        multiplier = 32;
+      } else if (route.params.gameType === "Pro") {
+        multiplier = 27;
+      }
+
+      console.log(multiplier);
+
+      for (let i = 0; i < arrOfFixed.length; i++) {
+        let randomNum = Math.floor(Math.random() * 99);
+
+        if (randomNum <= multiplier) {
+          arrOfFixed[i](true);
+          trueCounter++;
+        }
+      }
+
+      if (trueCounter < 19) {
+        console.log("recursion called", trueCounter);
+        for (let i = 0; i < arrOfFixed.length; i++) {
+          arrOfFixed[i](false);
+        }
+
+        showNum();
+      }
+    };
+
+    showNum();
+
+    return showNum;
+  }, []);
 
   return showContent ? (
     <View style={darkMode ? styles.containerDarkMode : styles.container}>
@@ -4626,6 +4856,13 @@ const GameScreen3 = ({ route }) => {
           ) : (
             <View></View>
           )}
+          {gameOver ? (
+            <View style={styles.containerEnd}>
+              <Text style={styles.textEnd}>Game is over but try again!!!</Text>
+            </View>
+          ) : (
+            <View></View>
+          )}
           <TouchableOpacity onPress={() => navigation.replace("Home")}>
             <View style={styles.playButton}>
               <ImageBackground
@@ -4636,8 +4873,8 @@ const GameScreen3 = ({ route }) => {
               >
                 <Text
                   style={{
-                    fontFamily: "CaveatBold",
-                    fontSize: 40,
+                    fontFamily: "Caveat",
+                    fontSize: 30,
                     color: "#003645",
                   }}
                 >
@@ -4656,8 +4893,8 @@ const GameScreen3 = ({ route }) => {
               >
                 <Text
                   style={{
-                    fontFamily: "CaveatBold",
-                    fontSize: 40,
+                    fontFamily: "Caveat",
+                    fontSize: 30,
                     color: "#003645",
                   }}
                 >
@@ -4715,7 +4952,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(1)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity1 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity1 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity1 }]
+                    }
                   >
                     {fixed1 ? (
                       <NumField
@@ -4740,7 +4984,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(2)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity2 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity2 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity2 }]
+                    }
                   >
                     {fixed2 ? (
                       <NumField
@@ -4766,7 +5017,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(3)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity3 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity3 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity3 }]
+                    }
                   >
                     {fixed3 ? (
                       <NumField
@@ -4793,7 +5051,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(10)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity10 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity10 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity10 }]
+                    }
                   >
                     {fixed10 ? (
                       <NumField
@@ -4818,7 +5083,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(11)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity11 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity11 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity11 }]
+                    }
                   >
                     {fixed11 ? (
                       <NumField
@@ -4843,7 +5115,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(12)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity12 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity12 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity12 }]
+                    }
                   >
                     {fixed12 ? (
                       <NumField
@@ -4870,7 +5149,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(19)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity19 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity19 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity19 }]
+                    }
                   >
                     {fixed19 ? (
                       <NumField
@@ -4895,7 +5181,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(20)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity20 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity20 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity20 }]
+                    }
                   >
                     {fixed20 ? (
                       <NumField
@@ -4920,7 +5213,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(21)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity21 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity21 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity21 }]
+                    }
                   >
                     {fixed21 ? (
                       <NumField
@@ -4949,7 +5249,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(4)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity4 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity4 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity4 }]
+                    }
                   >
                     {fixed4 ? (
                       <NumField
@@ -4974,7 +5281,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(5)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity5 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity5 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity5 }]
+                    }
                   >
                     {fixed5 ? (
                       <NumField
@@ -4999,7 +5313,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(6)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity6 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity6 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity6 }]
+                    }
                   >
                     {fixed6 ? (
                       <NumField
@@ -5026,7 +5347,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(13)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity13 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity13 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity13 }]
+                    }
                   >
                     {fixed13 ? (
                       <NumField
@@ -5051,7 +5379,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(14)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity14 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity14 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity14 }]
+                    }
                   >
                     {fixed14 ? (
                       <NumField
@@ -5076,7 +5411,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(15)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity15 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity15 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity15 }]
+                    }
                   >
                     {fixed15 ? (
                       <NumField
@@ -5103,7 +5445,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(22)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity22 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity22 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity22 }]
+                    }
                   >
                     {fixed22 ? (
                       <NumField
@@ -5128,7 +5477,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(23)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity23 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity23 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity23 }]
+                    }
                   >
                     {fixed23 ? (
                       <NumField
@@ -5153,7 +5509,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(24)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity24 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity24 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity24 }]
+                    }
                   >
                     {fixed24 ? (
                       <NumField
@@ -5182,7 +5545,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(7)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity7 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity7 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity7 }]
+                    }
                   >
                     {fixed7 ? (
                       <NumField
@@ -5207,7 +5577,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(8)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity8 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity8 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity8 }]
+                    }
                   >
                     {fixed8 ? (
                       <NumField
@@ -5232,7 +5609,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(9)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity9 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity9 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity9 }]
+                    }
                   >
                     {fixed9 ? (
                       <NumField
@@ -5259,7 +5643,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(16)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity16 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity16 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity16 }]
+                    }
                   >
                     {fixed16 ? (
                       <NumField
@@ -5284,7 +5675,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(17)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity17 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity17 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity17 }]
+                    }
                   >
                     {fixed17 ? (
                       <NumField
@@ -5309,7 +5707,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(18)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity18 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity18 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity18 }]
+                    }
                   >
                     {fixed18 ? (
                       <NumField
@@ -5336,7 +5741,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(25)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity25 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity25 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity25 }]
+                    }
                   >
                     {fixed25 ? (
                       <NumField
@@ -5361,7 +5773,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(26)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity26 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity26 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity26 }]
+                    }
                   >
                     {fixed26 ? (
                       <NumField
@@ -5386,7 +5805,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(27)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity27 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity27 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity27 }]
+                    }
                   >
                     {fixed27 ? (
                       <NumField
@@ -5417,7 +5843,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(28)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity28 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity28 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity28 }]
+                    }
                   >
                     {fixed28 ? (
                       <NumField
@@ -5442,7 +5875,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(29)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity29 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity29 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity29 }]
+                    }
                   >
                     {fixed29 ? (
                       <NumField
@@ -5467,7 +5907,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(30)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity30 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity30 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity30 }]
+                    }
                   >
                     {fixed30 ? (
                       <NumField
@@ -5494,7 +5941,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(37)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity37 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity37 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity37 }]
+                    }
                   >
                     {fixed37 ? (
                       <NumField
@@ -5519,7 +5973,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(38)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity38 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity38 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity38 }]
+                    }
                   >
                     {fixed38 ? (
                       <NumField
@@ -5544,7 +6005,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(39)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity39 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity39 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity39 }]
+                    }
                   >
                     {fixed39 ? (
                       <NumField
@@ -5571,7 +6039,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(46)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity46 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity46 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity46 }]
+                    }
                   >
                     {fixed46 ? (
                       <NumField
@@ -5596,7 +6071,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(47)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity47 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity47 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity47 }]
+                    }
                   >
                     {fixed47 ? (
                       <NumField
@@ -5621,7 +6103,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(48)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity48 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity48 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity48 }]
+                    }
                   >
                     {fixed48 ? (
                       <NumField
@@ -5650,7 +6139,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(31)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity31 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity31 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity31 }]
+                    }
                   >
                     {fixed31 ? (
                       <NumField
@@ -5675,7 +6171,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(32)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity32 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity32 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity32 }]
+                    }
                   >
                     {fixed32 ? (
                       <NumField
@@ -5700,7 +6203,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(33)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity33 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity33 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity33 }]
+                    }
                   >
                     {fixed33 ? (
                       <NumField
@@ -5727,7 +6237,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(40)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity40 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity40 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity40 }]
+                    }
                   >
                     {fixed40 ? (
                       <NumField
@@ -5752,7 +6269,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(41)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity41 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity41 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity41 }]
+                    }
                   >
                     {fixed41 ? (
                       <NumField
@@ -5777,7 +6301,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(42)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity42 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity42 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity42 }]
+                    }
                   >
                     {fixed42 ? (
                       <NumField
@@ -5804,7 +6335,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(49)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity49 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity49 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity49 }]
+                    }
                   >
                     {fixed49 ? (
                       <NumField
@@ -5829,7 +6367,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(50)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity50 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity50 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity50 }]
+                    }
                   >
                     {fixed50 ? (
                       <NumField
@@ -5854,7 +6399,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(51)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity51 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity51 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity51 }]
+                    }
                   >
                     {fixed51 ? (
                       <NumField
@@ -5883,7 +6435,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(34)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity34 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity34 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity34 }]
+                    }
                   >
                     {fixed34 ? (
                       <NumField
@@ -5908,7 +6467,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(35)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity35 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity35 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity35 }]
+                    }
                   >
                     {fixed35 ? (
                       <NumField
@@ -5933,7 +6499,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(36)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity36 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity36 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity36 }]
+                    }
                   >
                     {fixed36 ? (
                       <NumField
@@ -5960,7 +6533,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(43)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity43 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity43 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity43 }]
+                    }
                   >
                     {fixed43 ? (
                       <NumField
@@ -5985,7 +6565,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(44)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity44 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity44 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity44 }]
+                    }
                   >
                     {fixed44 ? (
                       <NumField
@@ -6010,7 +6597,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(45)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity45 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity45 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity45 }]
+                    }
                   >
                     {fixed45 ? (
                       <NumField
@@ -6037,7 +6631,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(52)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity52 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity52 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity52 }]
+                    }
                   >
                     {fixed52 ? (
                       <NumField
@@ -6062,7 +6663,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(53)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity53 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity53 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity53 }]
+                    }
                   >
                     {fixed53 ? (
                       <NumField
@@ -6087,7 +6695,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(54)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity54 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity54 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity54 }]
+                    }
                   >
                     {fixed54 ? (
                       <NumField
@@ -6118,7 +6733,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(55)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity55 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity55 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity55 }]
+                    }
                   >
                     {fixed55 ? (
                       <NumField
@@ -6143,7 +6765,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(56)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity56 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity56 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity56 }]
+                    }
                   >
                     {fixed56 ? (
                       <NumField
@@ -6168,7 +6797,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(57)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity57 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity57 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity57 }]
+                    }
                   >
                     {fixed57 ? (
                       <NumField
@@ -6195,7 +6831,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(64)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity64 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity64 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity64 }]
+                    }
                   >
                     {fixed64 ? (
                       <NumField
@@ -6220,7 +6863,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(65)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity65 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity65 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity65 }]
+                    }
                   >
                     {fixed65 ? (
                       <NumField
@@ -6245,7 +6895,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(66)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity66 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity66 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity66 }]
+                    }
                   >
                     {fixed66 ? (
                       <NumField
@@ -6272,7 +6929,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(73)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity73 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity73 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity73 }]
+                    }
                   >
                     {fixed73 ? (
                       <NumField
@@ -6297,7 +6961,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(74)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity74 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity74 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity74 }]
+                    }
                   >
                     {fixed74 ? (
                       <NumField
@@ -6322,7 +6993,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(75)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity75 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity75 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity75 }]
+                    }
                   >
                     {fixed75 ? (
                       <NumField
@@ -6351,7 +7029,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(58)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity58 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity58 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity58 }]
+                    }
                   >
                     {fixed58 ? (
                       <NumField
@@ -6376,7 +7061,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(59)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity59 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity59 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity59 }]
+                    }
                   >
                     {fixed59 ? (
                       <NumField
@@ -6401,7 +7093,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(60)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity60 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity60 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity60 }]
+                    }
                   >
                     {fixed60 ? (
                       <NumField
@@ -6428,7 +7127,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(67)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity67 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity67 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity67 }]
+                    }
                   >
                     {fixed67 ? (
                       <NumField
@@ -6453,7 +7159,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(68)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity68 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity68 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity68 }]
+                    }
                   >
                     {fixed68 ? (
                       <NumField
@@ -6478,7 +7191,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(69)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity69 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity69 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity69 }]
+                    }
                   >
                     {fixed69 ? (
                       <NumField
@@ -6505,7 +7225,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(76)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity76 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity76 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity76 }]
+                    }
                   >
                     {fixed76 ? (
                       <NumField
@@ -6530,7 +7257,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(77)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity77 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity77 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity77 }]
+                    }
                   >
                     {fixed77 ? (
                       <NumField
@@ -6555,7 +7289,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(78)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity78 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity78 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity78 }]
+                    }
                   >
                     {fixed78 ? (
                       <NumField
@@ -6616,7 +7357,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(62)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity62 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity62 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity62 }]
+                    }
                   >
                     {fixed62 ? (
                       <NumField
@@ -6641,7 +7389,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(63)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity63 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity63 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity63 }]
+                    }
                   >
                     {fixed63 ? (
                       <NumField
@@ -6668,7 +7423,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(70)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity70 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity70 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity70 }]
+                    }
                   >
                     {fixed70 ? (
                       <NumField
@@ -6693,7 +7455,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(71)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity71 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity71 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity71 }]
+                    }
                   >
                     {fixed71 ? (
                       <NumField
@@ -6718,7 +7487,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(72)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity72 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity72 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity72 }]
+                    }
                   >
                     {fixed72 ? (
                       <NumField
@@ -6745,7 +7521,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(79)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity79 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity79 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity79 }]
+                    }
                   >
                     {fixed79 ? (
                       <NumField
@@ -6770,7 +7553,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(80)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity80 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity80 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity80 }]
+                    }
                   >
                     {fixed80 ? (
                       <NumField
@@ -6795,7 +7585,14 @@ const GameScreen3 = ({ route }) => {
                   onPress={() => pressedSquare(81)}
                 >
                   <Animated.View
-                    style={[styles.animatedWrapper, { opacity: endOpacity81 }]}
+                    style={
+                      darkMode
+                        ? [
+                            styles.animatedWrapperDarkMode,
+                            { opacity: endOpacity81 },
+                          ]
+                        : [styles.animatedWrapper, { opacity: endOpacity81 }]
+                    }
                   >
                     {fixed81 ? (
                       <NumField

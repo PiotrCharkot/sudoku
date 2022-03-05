@@ -16,6 +16,7 @@ import { auth } from "../firebase";
 const LoginScreen = () => {
   const [loaded] = useFonts({
     CaveatBold: require("../../../assets/fonts/Caveat-Bold.ttf"),
+    Caveat: require("../../../assets/fonts/SyneMono.ttf"),
   });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -66,12 +67,12 @@ const LoginScreen = () => {
             >
               <Text
                 style={{
-                  fontFamily: "CaveatBold",
-                  fontSize: 40,
+                  fontFamily: "Caveat",
+                  fontSize: 30,
                   color: "#003645",
                 }}
               >
-                <Text> </Text>Log in<Text> </Text>
+                Log in
               </Text>
             </ImageBackground>
           </View>

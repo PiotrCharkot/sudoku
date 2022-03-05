@@ -300,6 +300,7 @@ const styles = StyleSheet.create({
     elevation: 1,
     shadowOpacity: 0.36,
     shadowRadius: 6.68,
+    elevation: 1,
   },
   buttonContainerOn: {
     paddingHorizontal: 15,
@@ -321,6 +322,7 @@ const styles = StyleSheet.create({
     elevation: 1,
     shadowOpacity: 0.36,
     shadowRadius: 3.68,
+    elevation: 1,
   },
   buttonContainerDarkMode: {
     paddingHorizontal: 15,
@@ -341,6 +343,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 1.36,
     shadowRadius: 12.68,
+    elevation: 1,
   },
   buttonContainerDarkModeOn: {
     paddingHorizontal: 15,
@@ -361,6 +364,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 1.36,
     shadowRadius: 12.68,
+    elevation: 1,
   },
   buttonContainerTime: {
     paddingHorizontal: 15,

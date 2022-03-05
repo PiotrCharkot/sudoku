@@ -17,6 +17,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const RegisterScreen = () => {
   const [loaded] = useFonts({
     CaveatBold: require("../../../assets/fonts/Caveat-Bold.ttf"),
+    Caveat: require("../../../assets/fonts/SyneMono.ttf"),
   });
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -24,19 +25,51 @@ const RegisterScreen = () => {
   const [anonymousDarkMode, setAnonymousDarkMode] = useState("");
   const [anonymousShowTimer, setAnonymousShowTimer] = useState("");
   const [anonymousSoundOn, setAnonymousSoundOn] = useState("");
+
+  const [anonymousBestTimeM, setAnonymousBestTimeM] = useState(0);
+  const [anonymousNumberOfGamesM, setAnonymousNumberOfGamesM] = useState(0);
+  const [anonymousFinishedGamesM, setAnonymousFinishedGamesM] = useState(0);
+  const [anonymousTotalTimeM, setAnonymousTotalTimeM] = useState(0);
+
   const [anonymousBestTime, setAnonymousBestTime] = useState(0);
   const [anonymousNumberOfGames, setAnonymousNumberOfGames] = useState(0);
   const [anonymousFinishedGames, setAnonymousFinishedGames] = useState(0);
   const [anonymousTotalTime, setAnonymousTotalTime] = useState(0);
 
+  const [anonymousBestTimeH, setAnonymousBestTimeH] = useState(0);
+  const [anonymousNumberOfGamesH, setAnonymousNumberOfGamesH] = useState(0);
+  const [anonymousFinishedGamesH, setAnonymousFinishedGamesH] = useState(0);
+  const [anonymousTotalTimeH, setAnonymousTotalTimeH] = useState(0);
+
+  const [anonymousBestTimeP, setAnonymousBestTimeP] = useState(0);
+  const [anonymousNumberOfGamesP, setAnonymousNumberOfGamesP] = useState(0);
+  const [anonymousFinishedGamesP, setAnonymousFinishedGamesP] = useState(0);
+  const [anonymousTotalTimeP, setAnonymousTotalTimeP] = useState(0);
+
   const getDataFromFB = (doc) => {
     setAnonymousDarkMode(doc.data().darkMode);
     setAnonymousShowTimer(doc.data().showTimer);
     setAnonymousSoundOn(doc.data().soundOn);
+
     setAnonymousBestTime(doc.data().bestTime);
     setAnonymousNumberOfGames(doc.data().numberOfGames);
     setAnonymousFinishedGames(doc.data().numberOfFinishedGames);
     setAnonymousTotalTime(doc.data().totalTime);
+
+    setAnonymousBestTimeM(doc.data().bestTimeM);
+    setAnonymousNumberOfGamesM(doc.data().numberOfGamesM);
+    setAnonymousFinishedGamesM(doc.data().numberOfFinishedGamesM);
+    setAnonymousTotalTimeM(doc.data().totalTimeM);
+
+    setAnonymousBestTimeH(doc.data().bestTimeH);
+    setAnonymousNumberOfGamesH(doc.data().numberOfGamesH);
+    setAnonymousFinishedGamesH(doc.data().numberOfFinishedGamesH);
+    setAnonymousTotalTimeH(doc.data().totalTimeH);
+
+    setAnonymousBestTimeP(doc.data().bestTimeP);
+    setAnonymousNumberOfGamesP(doc.data().numberOfGamesP);
+    setAnonymousFinishedGamesP(doc.data().numberOfFinishedGamesP);
+    setAnonymousTotalTimeP(doc.data().totalTimeP);
   };
 
   useEffect(() => {
@@ -57,7 +90,6 @@ const RegisterScreen = () => {
 
   const navigation = useNavigation();
 
-  // console.log("user in registration", auth.currentUser);
   const register = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
@@ -75,6 +107,21 @@ const RegisterScreen = () => {
               numberOfFinishedGames: anonymousFinishedGames,
               numberOfGames: anonymousNumberOfGames,
               totalTime: anonymousTotalTime,
+
+              bestTimeM: anonymousBestTimeM,
+              numberOfFinishedGamesM: anonymousFinishedGamesM,
+              numberOfGamesM: anonymousNumberOfGamesM,
+              totalTimeM: anonymousTotalTimeM,
+
+              bestTimeH: anonymousBestTimeH,
+              numberOfFinishedGamesH: anonymousFinishedGamesH,
+              numberOfGamesH: anonymousNumberOfGamesH,
+              totalTimeH: anonymousTotalTimeH,
+
+              bestTimeP: anonymousBestTimeP,
+              numberOfFinishedGamesP: anonymousFinishedGamesP,
+              numberOfGamesP: anonymousNumberOfGamesP,
+              totalTimeP: anonymousTotalTimeP,
             })
           )
           .catch((error) => alert(error.message));
@@ -142,8 +189,8 @@ const RegisterScreen = () => {
             >
               <Text
                 style={{
-                  fontFamily: "CaveatBold",
-                  fontSize: 40,
+                  fontFamily: "Caveat",
+                  fontSize: 30,
                   color: "#003645",
                 }}
               >

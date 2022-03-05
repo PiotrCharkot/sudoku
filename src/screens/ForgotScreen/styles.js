@@ -11,6 +11,10 @@ const styles = StyleSheet.create({
   formContainer: {
     width: 250,
   },
+  textTop: {
+    color: "white",
+    paddingBottom: 30,
+  },
   playButton: {
     flex: 0,
     height: 45,

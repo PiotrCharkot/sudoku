@@ -16,6 +16,7 @@ import { auth } from "../firebase";
 const ForgotScreen = () => {
   const [loaded] = useFonts({
     CaveatBold: require("../../../assets/fonts/Caveat-Bold.ttf"),
+    Caveat: require("../../../assets/fonts/SyneMono.ttf"),
   });
   const [email, setEmail] = useState("");
 
@@ -35,9 +36,10 @@ const ForgotScreen = () => {
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
+      <Text style={styles.textTop}>Enter your email to restore password.</Text>
       <View style={styles.formContainer}>
         <Input
-          placeholder={"E-post"}
+          placeholder={"e-mail"}
           autoFocus
           type={"email"}
           value={email}
@@ -58,12 +60,12 @@ const ForgotScreen = () => {
             >
               <Text
                 style={{
-                  fontFamily: "CaveatBold",
-                  fontSize: 40,
+                  fontFamily: "Caveat",
+                  fontSize: 30,
                   color: "#003645",
                 }}
               >
-                <Text> </Text>Send email<Text> </Text>
+                Send email
               </Text>
             </ImageBackground>
           </View>

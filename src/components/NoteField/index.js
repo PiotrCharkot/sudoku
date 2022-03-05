@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Platform } from "react-native";
 
 const NoteFiled = (params) => {
   const [text1, setText1] = useState(false);
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
     width: "100%",
-    borderColor: "black",
+    borderColor: "#00A4C5",
     borderRightWidth: 1,
     borderBottomWidth: 1,
     justifyContent: "space-between",
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     backgroundColor: "pink",
-    borderColor: "black",
+    borderColor: "#00A4C5",
     borderRightWidth: 1,
     borderBottomWidth: 1,
     justifyContent: "space-between",
@@ -75,11 +75,11 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "green",
-    fontSize: 12,
+    fontSize: Platform.OS === "ios" ? 12 : 8,
     opacity: 0.4,
   },
   textHide: {
-    fontSize: 12,
+    fontSize: Platform.OS === "ios" ? 12 : 8,
     opacity: 0,
   },
 });

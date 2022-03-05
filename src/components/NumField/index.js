@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   SmallSquare: {
     height: "100%",
     width: "100%",
-    borderColor: "black",
+    borderColor: "#00A4C5",
     borderRightWidth: 1,
     borderBottomWidth: 1,
     flex: 1,

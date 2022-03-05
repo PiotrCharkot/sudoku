@@ -9,6 +9,7 @@ import { db, auth } from "../firebase";
 const SettingScreen = () => {
   const [loaded] = useFonts({
     CaveatBold: require("../../../assets/fonts/Caveat-Bold.ttf"),
+    Caveat: require("../../../assets/fonts/SyneMono.ttf"),
   });
 
   const [darkMode, setDarkMode] = useState(false);
@@ -76,7 +77,7 @@ const SettingScreen = () => {
       <View style={styles.optionsContainer}>
         <Text
           style={{
-            fontFamily: "CaveatBold",
+            fontFamily: "Caveat",
             fontSize: 30,
             color: "black",
           }}
@@ -95,7 +96,7 @@ const SettingScreen = () => {
       <View style={styles.optionsContainer}>
         <Text
           style={{
-            fontFamily: "CaveatBold",
+            fontFamily: "Caveat",
             fontSize: 30,
             color: "black",
           }}
@@ -114,7 +115,7 @@ const SettingScreen = () => {
       <View style={styles.optionsContainer}>
         <Text
           style={{
-            fontFamily: "CaveatBold",
+            fontFamily: "Caveat",
             fontSize: 30,
             color: "black",
           }}
@@ -141,12 +142,12 @@ const SettingScreen = () => {
             >
               <Text
                 style={{
-                  fontFamily: "CaveatBold",
-                  fontSize: 40,
+                  fontFamily: "Caveat",
+                  fontSize: 25,
                   color: "#003645",
                 }}
               >
-                <Text> </Text> Save Settings<Text> </Text>
+                Save Settings
               </Text>
             </ImageBackground>
           </View>

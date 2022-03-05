@@ -14,6 +14,7 @@ import { db, auth } from "../firebase";
 const ChooseGameScreen = () => {
   const [loaded] = useFonts({
     CaveatBold: require("../../../assets/fonts/Caveat-Bold.ttf"),
+    Caveat: require("../../../assets/fonts/SyneMono.ttf"),
   });
 
   const [loged, setLoged] = useState(false);
@@ -35,7 +36,13 @@ const ChooseGameScreen = () => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => navigation.replace("Game")}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.replace("Game3", {
+                gameType: "Easy",
+              })
+            }
+          >
             <View style={styles.playButton}>
               <ImageBackground
                 source={require("../../../assets/buttonBackground.png")}
@@ -45,18 +52,24 @@ const ChooseGameScreen = () => {
               >
                 <Text
                   style={{
-                    fontFamily: "CaveatBold",
-                    fontSize: 40,
+                    fontFamily: "Caveat",
+                    fontSize: 30,
                     color: "#003645",
                   }}
                 >
-                  <Text> </Text> Easy <Text> </Text>
+                  Easy
                 </Text>
               </ImageBackground>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.replace("Game2")}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.replace("Game3", {
+                gameType: "Medium",
+              })
+            }
+          >
             <View style={styles.playButton}>
               <ImageBackground
                 source={require("../../../assets/buttonBackground.png")}
@@ -66,12 +79,12 @@ const ChooseGameScreen = () => {
               >
                 <Text
                   style={{
-                    fontFamily: "CaveatBold",
-                    fontSize: 40,
+                    fontFamily: "Caveat",
+                    fontSize: 30,
                     color: "#003645",
                   }}
                 >
-                  <Text> </Text> Medium<Text> </Text>
+                  Medium
                 </Text>
               </ImageBackground>
             </View>
@@ -93,18 +106,24 @@ const ChooseGameScreen = () => {
               >
                 <Text
                   style={{
-                    fontFamily: "CaveatBold",
-                    fontSize: 40,
+                    fontFamily: "Caveat",
+                    fontSize: 30,
                     color: "#003645",
                   }}
                 >
-                  <Text> </Text> Hard<Text> </Text>
+                  Hard
                 </Text>
               </ImageBackground>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate("Anim")}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("Game3", {
+                gameType: "Pro",
+              })
+            }
+          >
             <View style={styles.playButton}>
               <ImageBackground
                 source={require("../../../assets/buttonBackground.png")}
@@ -114,12 +133,12 @@ const ChooseGameScreen = () => {
               >
                 <Text
                   style={{
-                    fontFamily: "CaveatBold",
-                    fontSize: 40,
+                    fontFamily: "Caveat",
+                    fontSize: 30,
                     color: "#003645",
                   }}
                 >
-                  <Text> </Text> Pro<Text> </Text>
+                  Pro
                 </Text>
               </ImageBackground>
             </View>

@@ -12,6 +12,7 @@ import GameScreen from "../screens/GameScreen";
 import GameScreen2 from "../screens/GameScreen2";
 import GameScreen3 from "../screens/GameScreen3";
 import AnimScreen from "../screens/AnimatedTest";
+import RankingScreen from "../screens/RankingScreen";
 
 const Stack = createStackNavigator();
 
@@ -67,6 +68,11 @@ const Router = () => {
         <Stack.Screen
           name="Anim"
           component={AnimScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Ranking"
+          component={RankingScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
