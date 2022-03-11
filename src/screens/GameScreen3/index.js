@@ -23,7 +23,7 @@ import {
   faStickyNote,
 } from "@fortawesome/free-solid-svg-icons";
 
-//game lost fun
+//game lost function is up to date
 
 const GameScreen3 = ({ route }) => {
   const screenWidth = Dimensions.get("window").width;
