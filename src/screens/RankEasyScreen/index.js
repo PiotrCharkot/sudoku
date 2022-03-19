@@ -81,173 +81,88 @@ const RankEasyScreen = () => {
     }
   }, [showResult]);
 
-  return Platform.OS === "ios" ? (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require("../../../assets/gadientBlue-Blue.png")}
-        resizeMode="cover"
-        style={styles.backgroundImg}
-      >
-        <View style={styles.resultContainer}>
-          <View>
-            <Text style={styles.playersName}>
-              {auth.currentUser.displayName || anon}
-            </Text>
-          </View>
+  return <View style={styles.container}>
+  <ImageBackground
+    source={require("../../../assets/gadientBlue-Blue.png")}
+    resizeMode="cover"
+    style={styles.backgroundImg}
+  >
+    <View style={styles.resultContainer}>
+      <View>
+        <Text style={styles.playersName}>
+          {auth.currentUser.displayName || anon}
+        </Text>
+      </View>
 
-          <View style={styles.inLine}>
-            <View style={styles.inLineLeft}>
-              <Text style={[styles.textRes, { fontFamily: "Caveat" }]}>
-                Games Played
-              </Text>
-            </View>
-            <View style={styles.inLineRight}>
-              <Text style={styles.textRes}>{numberOfGames}</Text>
-            </View>
-          </View>
-          <View style={styles.inLine}>
-            <View style={styles.inLineLeft}>
-              <Text style={[styles.textRes, { fontFamily: "Caveat" }]}>
-                Games Won
-              </Text>
-            </View>
-            <View style={styles.inLineRight}>
-              <Text style={styles.textRes}>{finishedGames}</Text>
-            </View>
-          </View>
-          <View style={styles.inLine}>
-            <View style={styles.inLineLeft}>
-              <Text style={[styles.textRes, { fontFamily: "Caveat" }]}>
-                Success ratio
-              </Text>
-            </View>
-            <View style={styles.inLineRight}>
-              <Text style={styles.textRes}>
-                {finishedGames !== 0
-                  ? ((finishedGames * 100) / numberOfGames) % 1 === 0
-                    ? (finishedGames * 100) / numberOfGames
-                    : ((finishedGames * 100) / numberOfGames).toFixed(2)
-                  : 0}{" "}
-                %
-              </Text>
-            </View>
-          </View>
-          <View style={styles.inLine}>
-            <View style={styles.inLineLeft}>
-              <Text style={[styles.textRes, { fontFamily: "Caveat" }]}>
-                Best Time
-              </Text>
-            </View>
-            <View style={styles.inLineRight}>
-              <Text style={styles.textRes}>
-                {" "}
-                {hourB < 10 ? "0" + hourB : hourB}:
-                {minutesB < 10 ? "0" + minutesB : minutesB}:
-                {secondsB < 10 ? "0" + secondsB : secondsB}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.inLine}>
-            <View style={styles.inLineLeft}>
-              <Text style={[styles.textRes, { fontFamily: "Caveat" }]}>
-                Average Time
-              </Text>
-            </View>
-            <View style={styles.inLineRight}>
-              <Text style={styles.textRes}>
-                {hour < 10 ? "0" + hour : hour}:
-                {minutes < 10 ? "0" + minutes : minutes}:
-                {seconds < 10 ? "0" + seconds : seconds}
-              </Text>
-            </View>
-          </View>
+      <View style={styles.inLine}>
+        <View style={styles.inLineLeft}>
+          <Text style={[styles.textRes, { fontFamily: "Caveat" }]}>
+            Games Played
+          </Text>
         </View>
-      </ImageBackground>
+        <View style={styles.inLineRight}>
+          <Text style={styles.textRes}>{numberOfGames}</Text>
+        </View>
+      </View>
+      <View style={styles.inLine}>
+        <View style={styles.inLineLeft}>
+          <Text style={[styles.textRes, { fontFamily: "Caveat" }]}>
+            Games Won
+          </Text>
+        </View>
+        <View style={styles.inLineRight}>
+          <Text style={styles.textRes}>{finishedGames}</Text>
+        </View>
+      </View>
+      <View style={styles.inLine}>
+        <View style={styles.inLineLeft}>
+          <Text style={[styles.textRes, { fontFamily: "Caveat" }]}>
+            Success ratio
+          </Text>
+        </View>
+        <View style={styles.inLineRight}>
+          <Text style={styles.textRes}>
+            {finishedGames !== 0
+              ? ((finishedGames * 100) / numberOfGames) % 1 === 0
+                ? (finishedGames * 100) / numberOfGames
+                : ((finishedGames * 100) / numberOfGames).toFixed(2)
+              : 0}{" "}
+            %
+          </Text>
+        </View>
+      </View>
+      <View style={styles.inLine}>
+        <View style={styles.inLineLeft}>
+          <Text style={[styles.textRes, { fontFamily: "Caveat" }]}>
+            Best Time
+          </Text>
+        </View>
+        <View style={styles.inLineRight}>
+          <Text style={styles.textRes}>
+            {" "}
+            {hourB < 10 ? "0" + hourB : hourB}:
+            {minutesB < 10 ? "0" + minutesB : minutesB}:
+            {secondsB < 10 ? "0" + secondsB : secondsB}
+          </Text>
+        </View>
+      </View>
+      <View style={styles.inLine}>
+        <View style={styles.inLineLeft}>
+          <Text style={[styles.textRes, { fontFamily: "Caveat" }]}>
+            Average Time
+          </Text>
+        </View>
+        <View style={styles.inLineRight}>
+          <Text style={styles.textRes}>
+            {hour < 10 ? "0" + hour : hour}:
+            {minutes < 10 ? "0" + minutes : minutes}:
+            {seconds < 10 ? "0" + seconds : seconds}
+          </Text>
+        </View>
+      </View>
     </View>
-  ) : (
-    <SafeAreaView style={styles.container}>
-      <ImageBackground
-        source={require("../../../assets/gadientBlue-Blue.png")}
-        resizeMode="cover"
-        style={styles.backgroundImg}
-      >
-        <View style={styles.resultContainer}>
-          <View>
-            <Text style={styles.playersName}>
-              {auth.currentUser.displayName || anon}
-            </Text>
-          </View>
-
-          <View style={styles.inLine}>
-            <View style={styles.inLineLeft}>
-              <Text style={[styles.textRes, { fontFamily: "Caveat" }]}>
-                Games Played
-              </Text>
-            </View>
-            <View style={styles.inLineRight}>
-              <Text style={styles.textRes}>{numberOfGames}</Text>
-            </View>
-          </View>
-          <View style={styles.inLine}>
-            <View style={styles.inLineLeft}>
-              <Text style={[styles.textRes, { fontFamily: "Caveat" }]}>
-                Games Won
-              </Text>
-            </View>
-            <View style={styles.inLineRight}>
-              <Text style={styles.textRes}>{finishedGames}</Text>
-            </View>
-          </View>
-          <View style={styles.inLine}>
-            <View style={styles.inLineLeft}>
-              <Text style={[styles.textRes, { fontFamily: "Caveat" }]}>
-                Success ratio
-              </Text>
-            </View>
-            <View style={styles.inLineRight}>
-              <Text style={styles.textRes}>
-                {finishedGames !== 0
-                  ? ((finishedGames * 100) / numberOfGames) % 1 === 0
-                    ? (finishedGames * 100) / numberOfGames
-                    : ((finishedGames * 100) / numberOfGames).toFixed(2)
-                  : 0}{" "}
-                %
-              </Text>
-            </View>
-          </View>
-          <View style={styles.inLine}>
-            <View style={styles.inLineLeft}>
-              <Text style={[styles.textRes, { fontFamily: "Caveat" }]}>
-                Best Time
-              </Text>
-            </View>
-            <View style={styles.inLineRight}>
-              <Text style={styles.textRes}>
-                {" "}
-                {hourB < 10 ? "0" + hourB : hourB}:
-                {minutesB < 10 ? "0" + minutesB : minutesB}:
-                {secondsB < 10 ? "0" + secondsB : secondsB}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.inLine}>
-            <View style={styles.inLineLeft}>
-              <Text style={[styles.textRes, { fontFamily: "Caveat" }]}>
-                Average Time
-              </Text>
-            </View>
-            <View style={styles.inLineRight}>
-              <Text style={styles.textRes}>
-                {hour < 10 ? "0" + hour : hour}:
-                {minutes < 10 ? "0" + minutes : minutes}:
-                {seconds < 10 ? "0" + seconds : seconds}
-              </Text>
-            </View>
-          </View>
-        </View>
-      </ImageBackground>
-    </SafeAreaView>
-  );
+  </ImageBackground>
+</View>
 };
 
 export default RankEasyScreen;

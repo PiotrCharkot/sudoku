@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
 
   playersName: {
     color: "white",
-    fontSize: 25,
-    paddingBottom: 30,
+    fontSize: Platform.OS === 'ios' ? 25 : 22,
+    paddingBottom: Platform.OS === 'ios' ? 30 : 25,
   },
   inLine: {
     flexDirection: "row",
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   inLineLeft: {},
   inLineRight: {},
   textRes: {
-    fontSize: 22,
+    fontSize: Platform.OS === 'ios' ? 22 : 18,
     color: "white",
   },
 });

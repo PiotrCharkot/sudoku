@@ -78,7 +78,7 @@ const SettingScreen = () => {
         <Text
           style={{
             fontFamily: "Caveat",
-            fontSize: 30,
+            fontSize: Platform.OS === 'ios' ? 30 : 23,
             color: "black",
           }}
         >
@@ -97,7 +97,7 @@ const SettingScreen = () => {
         <Text
           style={{
             fontFamily: "Caveat",
-            fontSize: 30,
+            fontSize: Platform.OS === 'ios' ? 30 : 23,
             color: "black",
           }}
         >
@@ -116,7 +116,7 @@ const SettingScreen = () => {
         <Text
           style={{
             fontFamily: "Caveat",
-            fontSize: 30,
+            fontSize: Platform.OS === 'ios' ? 30 : 23,
             color: "black",
           }}
         >
@@ -143,7 +143,7 @@ const SettingScreen = () => {
               <Text
                 style={{
                   fontFamily: "Caveat",
-                  fontSize: 25,
+                  fontSize: Platform.OS === 'ios' ? 28 : 23,
                   color: "#003645",
                 }}
               >

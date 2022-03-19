@@ -6,7 +6,7 @@ import RankEasyScreen from "../screens/RankEasyScreen";
 import RankMediumScreen from "../screens/RankMediumScreen";
 import RankHardScreen from "../screens/RankHardScreen";
 import RankProScreen from "../screens/RankProScreen";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Platform } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,6 +17,7 @@ const Tabs = () => {
         tabBarStyle: {
           backgroundColor: "#003645",
           borderTopColor: "#003645",
+          height: Platform.OS === 'ios' ? 80 : 60,
         },
         tabBarShowLabel: false,
         headerShadowVisible: false,
@@ -27,6 +28,7 @@ const Tabs = () => {
           color: "green",
           fontSize: 22,
           fontWeight: "bold",
+          
         },
       }}
     >
@@ -120,8 +122,8 @@ const styles = StyleSheet.create({
   iconWrapper: {
     height: "100%",
     width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: Platform.OS === 'ios' ? 'center' : 'flex-start',
     top: 8,
   },
 });

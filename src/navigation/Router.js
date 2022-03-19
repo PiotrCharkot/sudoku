@@ -8,8 +8,6 @@ import RegisterScreen from "../screens/RegisterScreen";
 import SettingScreen from "../screens/SettingsScreen";
 import ForgotScreen from "../screens/ForgotScreen";
 import ChooseGameScreen from "../screens/ChooseGameScreen";
-import GameScreen from "../screens/GameScreen";
-import GameScreen2 from "../screens/GameScreen2";
 import GameScreen3 from "../screens/GameScreen3";
 import AnimScreen from "../screens/AnimatedTest";
 import RankingScreen from "../screens/RankingScreen";
@@ -48,16 +46,6 @@ const Router = () => {
         <Stack.Screen
           name="Choose"
           component={ChooseGameScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Game"
-          component={GameScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Game2"
-          component={GameScreen2}
           options={{ headerShown: false }}
         />
         <Stack.Screen

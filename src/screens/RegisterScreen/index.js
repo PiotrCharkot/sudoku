@@ -190,7 +190,7 @@ const RegisterScreen = () => {
               <Text
                 style={{
                   fontFamily: "Caveat",
-                  fontSize: 30,
+                  fontSize: Platform.OS === 'ios' ? 30 : 23,
                   color: "#003645",
                 }}
               >

@@ -5,6 +5,7 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import { useFonts } from "expo-font";
@@ -106,7 +107,7 @@ const HomeScreen = () => {
                 <Text
                   style={{
                     fontFamily: "Caveat",
-                    fontSize: 30,
+                    fontSize: Platform.OS === 'ios' ? 30 : 23,
                     color: "#003645",
                   }}
                 >
@@ -132,7 +133,7 @@ const HomeScreen = () => {
                   <Text
                     style={{
                       fontFamily: "Caveat",
-                      fontSize: 30,
+                      fontSize: Platform.OS === 'ios' ? 30 : 23,
                       color: "#003645",
                     }}
                   >
@@ -153,7 +154,7 @@ const HomeScreen = () => {
                   <Text
                     style={{
                       fontFamily: "Caveat",
-                      fontSize: 30,
+                      fontSize: Platform.OS === 'ios' ? 30 : 23,
                       color: "#003645",
                     }}
                   >
@@ -175,7 +176,7 @@ const HomeScreen = () => {
                 <Text
                   style={{
                     fontFamily: "Caveat",
-                    fontSize: 30,
+                    fontSize: Platform.OS === 'ios' ? 30 : 23,
                     color: "#003645",
                   }}
                 >
@@ -196,7 +197,7 @@ const HomeScreen = () => {
                 <Text
                   style={{
                     fontFamily: "Caveat",
-                    fontSize: 30,
+                    fontSize: Platform.OS === 'ios' ? 30 : 23,
                     color: "#003645",
                   }}
                 >
