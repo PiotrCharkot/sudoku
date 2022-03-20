@@ -6,10 +6,10 @@ import { StyleSheet, Text, View } from "react-native";
 
 export default function App() {
   return (
-    <SafeAreaProvider>
+    <>
       <Router />
       <StatusBar style="auto" />
-    </SafeAreaProvider>
+    </>
   );
 }
 

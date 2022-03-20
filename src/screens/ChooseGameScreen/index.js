@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
   Image,
   ImageBackground,
   TouchableOpacity,
+  Animated
 } from "react-native";
 import styles from "./styles";
 import { useFonts } from "expo-font";
@@ -18,8 +19,42 @@ const ChooseGameScreen = () => {
   });
 
   const [loged, setLoged] = useState(false);
+  const slide = useRef(new Animated.Value(-400)).current
+  const slide1 = useRef(new Animated.Value(-400)).current
+  const slide2 = useRef(new Animated.Value(-400)).current
+  const slide3 = useRef(new Animated.Value(-400)).current
 
   const navigation = useNavigation();
+
+  useEffect(() => {
+    Animated.spring(slide, {
+      toValue: 0,
+      useNativeDriver: true,
+      friction: 3,
+      delay:200
+    }).start()
+
+    Animated.spring(slide1, {
+      toValue: 0,
+      useNativeDriver: true,
+      friction: 3,
+      delay:250
+    }).start()
+
+    Animated.spring(slide2, {
+      toValue: 0,
+      useNativeDriver: true,
+      friction: 3,
+      delay:300
+    }).start()
+
+    Animated.spring(slide3, {
+      toValue: 0,
+      useNativeDriver: true,
+      friction: 3,
+      delay:350
+    }).start()
+  }, [])
 
   if (!loaded) {
     return null;
@@ -43,7 +78,7 @@ const ChooseGameScreen = () => {
               })
             }
           >
-            <View style={styles.playButton}>
+            <Animated.View style={[styles.playButton, {transform: [{ translateX: slide }]}]}>
               <ImageBackground
                 source={require("../../../assets/buttonBackground.png")}
                 style={styles.buttonImg}
@@ -60,7 +95,7 @@ const ChooseGameScreen = () => {
                   Easy
                 </Text>
               </ImageBackground>
-            </View>
+            </Animated.View>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -70,7 +105,7 @@ const ChooseGameScreen = () => {
               })
             }
           >
-            <View style={styles.playButton}>
+            <Animated.View style={[styles.playButton, {transform: [{ translateX: slide1 }]}]}>
               <ImageBackground
                 source={require("../../../assets/buttonBackground.png")}
                 style={styles.buttonImg}
@@ -87,7 +122,7 @@ const ChooseGameScreen = () => {
                   Medium
                 </Text>
               </ImageBackground>
-            </View>
+            </Animated.View>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -97,7 +132,7 @@ const ChooseGameScreen = () => {
               })
             }
           >
-            <View style={styles.playButton}>
+            <Animated.View style={[styles.playButton, {transform: [{ translateX: slide2 }]}]}>
               <ImageBackground
                 source={require("../../../assets/buttonBackground.png")}
                 style={styles.buttonImg}
@@ -114,7 +149,7 @@ const ChooseGameScreen = () => {
                   Hard
                 </Text>
               </ImageBackground>
-            </View>
+            </Animated.View>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -124,7 +159,7 @@ const ChooseGameScreen = () => {
               })
             }
           >
-            <View style={styles.playButton}>
+            <Animated.View style={[styles.playButton, {transform: [{ translateX: slide3 }]}]}>
               <ImageBackground
                 source={require("../../../assets/buttonBackground.png")}
                 style={styles.buttonImg}
@@ -141,7 +176,7 @@ const ChooseGameScreen = () => {
                   Pro
                 </Text>
               </ImageBackground>
-            </View>
+            </Animated.View>
           </TouchableOpacity>
         </View>
       </ImageBackground>
